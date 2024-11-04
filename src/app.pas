@@ -1,0 +1,6 @@
+
+Program app;
+
+Begin
+
+End.
