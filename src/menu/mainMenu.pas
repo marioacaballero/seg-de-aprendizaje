@@ -5,7 +5,7 @@ Interface
 
 {$unitPath ./}
 
-Uses crt, studentsMenu, testsMenu;
+Uses crt, studentsMenu, testsMenu, listMenu;
 
 Const 
   nOp = 5;
@@ -74,7 +74,7 @@ Begin
           Case here Of 
             1: menuStudents();
             2: menuTest();
-            3: WriteLn('Listados');
+            3: menuLits();
             4: WriteLn('Estadisticas');
             Else
               Begin
