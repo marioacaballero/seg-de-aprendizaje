@@ -3,7 +3,9 @@ Unit studentsMenu;
 
 Interface
 
-Uses crt;
+{$unitPath ../students/}
+
+Uses crt, CRUDStudents;
 
 Const 
   nOp = 5;
@@ -67,11 +69,12 @@ Begin
       If (key = chr(13)) Then
         Begin
           clrscr;
+          initStudentFile();
           Case here Of 
-            1: WriteLn('Alta');
-            2: WriteLn('Baja');
-            3: WriteLn('Modificacion');
-            4: WriteLn('Consulta');
+            1: createStudent();
+            2: deleteStudent();
+            3: updateStudent();
+            4: readStudent();
             Else
               Begin
                 key := chr(5);
