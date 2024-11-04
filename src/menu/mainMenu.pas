@@ -5,7 +5,7 @@ Interface
 
 {$unitPath ./}
 
-Uses crt, studentsMenu, testsMenu, listMenu;
+Uses crt, studentsMenu, testsMenu, listMenu, stadisticsMenu;
 
 Const 
   nOp = 5;
@@ -75,7 +75,7 @@ Begin
             1: menuStudents();
             2: menuTest();
             3: menuLits();
-            4: WriteLn('Estadisticas');
+            4: menuStadistics();
             Else
               Begin
                 key := chr(5);
