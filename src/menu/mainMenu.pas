@@ -5,17 +5,17 @@ Interface
 
 {$unitPath ./}
 
-Uses crt, studentsMenu;
+Uses crt, studentsMenu, testsMenu;
 
 Const 
   nOp = 5;
   opciones: array[1..nOp] Of string = ('Alumno', 'Seguimiento', 'Listados',
                                        'Estadisticas', 'Salir');
 
-Procedure menu();
+Procedure menuMain();
 
 Implementation
-Procedure menu();
+Procedure menuMain();
 
 Var 
   w: string;
@@ -73,7 +73,7 @@ Begin
           clrscr;
           Case here Of 
             1: menuStudents();
-            2: WriteLn('Seguimiento');
+            2: menuTest();
             3: WriteLn('Listados');
             4: WriteLn('Estadisticas');
             Else

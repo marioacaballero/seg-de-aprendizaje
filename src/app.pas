@@ -4,5 +4,5 @@ Program app;
 
 Uses mainMenu;
 Begin
-  menu();
+  menuMain();
 End.
