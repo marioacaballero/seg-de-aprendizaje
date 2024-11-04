@@ -5,7 +5,7 @@ Interface
 
 {$unitPath ../students/}
 
-Uses crt, CRUDStudents;
+Uses crt, initStudents, CRUDStudents;
 
 Const 
   nOp = 5;

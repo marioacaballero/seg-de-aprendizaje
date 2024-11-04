@@ -3,7 +3,9 @@ Unit listMenu;
 
 Interface
 
-Uses crt;
+{$unitPath ../students/}
+
+Uses crt, initStudents;
 
 Const 
   nOp = 4;
@@ -69,7 +71,7 @@ Begin
         Begin
           clrscr;
           Case here Of 
-            1: WriteLn('Alumnos A-Z');
+            1: showAllStudents();
             2: WriteLn('Evaluaciones  de un alumno');
             3: WriteLn('Alumnos por dificultad');
             Else

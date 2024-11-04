@@ -3,45 +3,15 @@ Unit CRUDStudents;
 
 Interface
 
-Uses sysutils;
+Uses sysutils, initStudents;
 
-Const 
-  path = './assets/students.dat';
-
-Type 
-  T_Discapacidad = array [1..5] Of boolean;
-  T_Alumno = Record
-    numLegajo: string[8];
-    nombre: string[50];
-    apellido: string[50];
-    fechaNacimiento: string[8];
-    estado: Boolean;
-    discapacidades: T_Discapacidad;
-  End;
-
-  T_File = File Of T_Alumno;
-
-Procedure initStudentFile();
 Procedure createStudent();
 Procedure readStudent();
 Procedure updateStudent();
 Procedure deleteStudent();
 
 Implementation
-Procedure initStudentFile();
 
-Var 
-  f: T_File;
-Begin
-  Assign(f, path);
-  //Para chequear se puede utilizar las directivas al compilador:
- {$I-}
-  //orden al compilador que deshabilite el control de IO
-  Reset(f);
-{$I+}
-  //orden al compilador que habilite el control de IO
-  If IOResult<>0 Then Rewrite(f); {si no existe lo crea}
-End;
 
 Procedure initDiscapacidades(Var student: T_Alumno);
 
@@ -78,37 +48,6 @@ Begin
   Seek(f, FileSize(f));
   Write(f, student);
   Close(f);
-End;
-
-// Function showAllChars(text: String): string;
-
-// Var 
-//   i: byte;
-// Begin
-//   For i := 1 To Length(text) Do
-//     Begin
-//       write(text[i]);
-//     End;
-// End;
-
-// Function showStudent(student: T_Alumno): string;
-// Begin
-//   showAllChars(student.numLegajo);
-//   Write(' | ');
-//   showAllChars(student.apellido);
-//   Write(' | ');
-//   showAllChars(student.nombre);
-//   Write(' | ');
-//   showAllChars(student.fechaNacimiento);
-// End;
-
-Function showBirthday(birthday: String): string;
-Begin
-  Write(birthday[1] + birthday[2]);
-  Write('/');
-  Write(birthday[3] + birthday[4]);
-  Write('/');
-  Write(birthday[5] + birthday[6] + birthday[7] + birthday[8]);
 End;
 
 Function showState(state: Boolean): string;
