@@ -13,6 +13,8 @@ Const
                                        'Consulta', 'Salir');
 Procedure menuStudents();
 
+{Al ingresar al menu debe solicitar el numero de legajo, en caso de que exista muestra los datos y da las opciones de modificarlos o eliminarlos (sin modificar el numero de legajo), en el caso de que no se encuentre le solicita los demas campos para darlo de alta si es que la persona lo desea.}
+
 Implementation
 Procedure menuStudents();
 
