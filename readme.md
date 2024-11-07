@@ -54,11 +54,11 @@ La solución esperada debe contar con:
 
 ## Notas
 
-El trabajo se deberá implementar con archivos random.
-El archivo de Alumnos se mantendrá ordenado mediante árboles binarios de búsqueda (uno
-por Número de Legajo y uno por Apellido y Nombres, con clave y pos_relativa_maestro) y el
-archivo de evaluaciones, por fecha
-Debe estar modularizado en Units.
-Se puede agregar cualquier aporte que considere conveniente, justificando.
-Se presupone que el usuario será personal del área de educación, por lo que la carga y
-visualización de los datos debe ser práctica y amigable.
+- El trabajo se deberá implementar con archivos random.
+- El archivo de Alumnos se mantendrá ordenado mediante árboles binarios de búsqueda (uno
+  por Número de Legajo y uno por Apellido y Nombres, con clave y pos_relativa_maestro) y el
+  archivo de evaluaciones, por fecha
+- Debe estar modularizado en Units.
+- Se puede agregar cualquier aporte que considere conveniente, justificando.
+- Se presupone que el usuario será personal del área de educación, por lo que la carga y
+  visualización de los datos debe ser práctica y amigable.
