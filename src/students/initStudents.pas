@@ -22,6 +22,7 @@ Type
 Procedure initStudentFile();
 Procedure showAllStudents();
 Function showBirthday(birthday: String): string;
+Function showStudent(leg, apell, nomb, fecha: String): string;
 
 Implementation
 Procedure initStudentFile();
