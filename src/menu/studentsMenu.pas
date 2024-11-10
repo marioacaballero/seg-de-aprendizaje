@@ -10,103 +10,189 @@ Uses crt, initStudents, CRUDStudents, searchUnit;
 Const 
   nOp1 = 2;
   nOp2 = 3;
-  opciones1: array[1..nOp1] Of string = ('Dar de alta', 'Salir');
-  opciones2: array[1..nOp2] Of string = ('Modificar', 'Dar de baja', 'Salir');
+  opciones1: array[1..nOp1] Of string = ('Dar de alta', 'Ingresar Otro');
+  opciones2: array[1..nOp2] Of string = ('Modificar', 'Dar de baja',
+                                         'Ingresar Otro');
 
 Procedure menuStudents();
 
 Implementation
 
-Procedure findStudent();
+Function titleText(): string;
 Begin
-  For i:= 1 To nOp2 Do
-    Begin
-      If i = here Then
-        textcolor(white)
-      Else
-        textcolor(green);
-      WriteLn(i, '. ', opciones2[i]);
-    End;
-  key := ReadKey;
+  textcolor(white);
+  WriteLn('--------------------------------');
+  WriteLn('|                              |');
+  WriteLn('|           ALUMNOS            |');
+  WriteLn('|                              |');
+  WriteLn('--------------------------------');
+  writeln('');
+End;
 
-  If key = chr(0) Then
-    Begin
-      key := ReadKey;
-      Case key Of 
-        #72:
-             Begin
-               If (here > 1) Then
-                 here := here - 1
-               Else
-                 here := nOp2;
-             End;
-        #80:
-             Begin
-               If (here < nOp2) Then
-                 here := here + 1
-               Else
-                 here := 1;
-             End;
-      End;
-    End
-  Else
-    If (key = chr(13)) Then
+Procedure findSubMenu(leg: String; find: boolean);
+
+Var 
+  i, here: integer;
+  key: Char;
+Begin
+  here := 1;
+  Repeat
+    clrscr;
+    titleText();
+    textcolor(green);
+    searchStudent(leg, find);
+    writeln('');
+    writeln('');
+    For i:= 1 To nOp2 Do
       Begin
-        clrscr;
-        initStudentFile();
-        Case here Of 
-          // 1: createStudent();
-          1: updateStudent();
-          2: deleteStudent();
-          // 4: readStudent();
-          Else
-            Begin
-              key := chr(27);
-              textcolor(green);
-              WriteLn('Volviendo al Menu Principal!');
-              writeln('');
-              WriteLn('<------------------------------------------');
-            End;
-        End;
-        readkey;
+        If i = here Then
+          textcolor(white)
+        Else
+          textcolor(green);
+        WriteLn(i, '. ', opciones2[i]);
       End;
+    key := ReadKey;
+
+    If key = chr(0) Then
+      Begin
+        key := ReadKey;
+        Case key Of 
+          #72:
+               Begin
+                 If (here > 1) Then
+                   here := here - 1
+                 Else
+                   here := nOp2;
+               End;
+          #80:
+               Begin
+                 If (here < nOp2) Then
+                   here := here + 1
+                 Else
+                   here := 1;
+               End;
+        End;
+      End
+    Else
+      If (key = chr(13)) Then
+        Begin
+          clrscr;
+          Case here Of 
+            // 1: createStudent();
+            1: updateStudent(leg);
+            2: deleteStudent();
+            // 4: readStudent();
+            Else
+              Begin
+                key := chr(27);
+              End;
+          End;
+        End;
+  Until key = chr(27);
+
+End;
+
+Procedure notFindSubMenu(leg: String; find: boolean);
+
+Var 
+  i, here: integer;
+  key: Char;
+Begin
+  here := 1;
+  Repeat
+    clrscr;
+    titleText();
+    textcolor(green);
+    searchStudent(leg, find);
+    writeln('');
+    If (key <> char(27)) Then
+      Begin
+        For i:= 1 To nOp1 Do
+          Begin
+            If i = here Then
+              textcolor(white)
+            Else
+              textcolor(green);
+            WriteLn(i, '. ', opciones1[i]);
+          End;
+        key := ReadKey;
+
+        If key = chr(0) Then
+          Begin
+            key := ReadKey;
+            Case key Of 
+              #72:
+                   Begin
+                     If (here > 1) Then
+                       here := here - 1
+                     Else
+                       here := nOp1;
+                   End;
+              #80:
+                   Begin
+                     If (here < nOp1) Then
+                       here := here + 1
+                     Else
+                       here := 1;
+                   End;
+            End;
+          End
+        Else
+          If (key = chr(13)) Then
+            Begin
+              clrscr;
+              Case here Of 
+                1: createStudent(leg, key);
+                // 1: updateStudent();
+                // 2: deleteStudent();
+                // 2: readStudent();
+                Else
+                  Begin
+                    key := chr(27);
+                  End;
+              End;
+              readkey;
+            End;
+      End;
+  Until key = chr(27);
+
 End;
 
 Procedure menuStudents();
 
 Var 
   w, leg: string;
-  i, here: integer;
-  key: Char;
   find: boolean;
+  key: Char;
 Begin
-  here := 1;
+  // incializo el archivo de alumnos
+  initStudentFile();
   Repeat
     clrscr;
-    textcolor(white);
-    WriteLn('--------------------------------');
-    WriteLn('|                              |');
-    WriteLn('|           ALUMNOS            |');
-    WriteLn('|                              |');
-    WriteLn('--------------------------------');
-    writeln('');
-    textcolor(lightgray);
-    Write('Ingrese numero de legajo: ');
-    textcolor(green);
-    ReadLn(leg);
-    searchStudent(leg, find);
-
-    // If (find) Then
-
-    // Else
-    //   Begin
-    //     WriteLn('probando no encontrado');
-    //   End;
+    Begin
+      titleText();
+      textcolor(lightgray);
+      WriteLn('Presione ENTER para ingresar el legajo o ESC para volver');
+      key := ReadKey;
+      If key <> chr(27) Then
+        Begin
+          WriteLn('');
+          Write('Numero de legajo: ');
+          textcolor(green);
+          ReadLn(leg);
+          searchStudent(leg, find);
+          If (find) Then
+            findSubMenu(leg, find)
+          Else
+            notFindSubMenu(leg, find);
+        End;
+    End;
   Until key = chr(27);
-  // clrscr();
-  // textcolor(green);
-  // WriteLn('Volviendo al Menu Principal!');
-  // writeln('');
-  // WriteLn('<------------------------------------------');
+  key := chr(0);
+  clrscr();
+  textcolor(green);
+  WriteLn('Volviendo al Menu Principal!');
+  writeln('');
+  WriteLn('<------------------------------------------');
 End;
 End.
