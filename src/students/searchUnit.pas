@@ -19,7 +19,7 @@ Begin
   Assign(f, path);
   Reset(f);
   find := false;
-  While (Not Eof(f)) And find Do
+  While (Not Eof(f)) And (Not find) Do
     Begin
       read(f, student);
       If student.numLegajo = leg Then
