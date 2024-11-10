@@ -3,11 +3,11 @@ Unit CRUDStudents;
 
 Interface
 
-Uses sysutils, initStudents;
+Uses crt, sysutils, initStudents;
 
-Procedure createStudent();
+Procedure createStudent(leg: String; Var key: Char);
 Procedure readStudent();
-Procedure updateStudent();
+Procedure updateStudent(leg: String);
 Procedure deleteStudent();
 
 Implementation
@@ -22,10 +22,14 @@ Begin
     student.discapacidades[i] := False;
 End;
 
-Procedure chargeStudent(Var student: T_Alumno);
+Procedure chargeStudent(Var student: T_Alumno; leg: String);
 Begin
-  write('Legajo: ');
-  readln(student.numLegajo);
+  textcolor(white);
+  WriteLn('Complete los datos solicitados');
+  WriteLn('');
+  textcolor(green);
+  WriteLn('Legajo: ', leg);
+  student.numLegajo := leg;
   write('Nombres: ');
   readln(student.nombre);
   write('Apellidos: ');
@@ -36,7 +40,7 @@ Begin
   initDiscapacidades(student);
 End;
 
-Procedure createStudent();
+Procedure createStudent(leg: String; Var key: Char);
 
 Var 
   f: T_File;
@@ -44,10 +48,14 @@ Var
 Begin
   Assign(f, path);
   Reset(f);
-  chargeStudent(student);
+  chargeStudent(student, leg);
   Seek(f, FileSize(f));
   Write(f, student);
   Close(f);
+  key := chr(27);
+  WriteLn('');
+  textcolor(white);
+  WriteLn('Alumno dado de alta');
 End;
 
 Function showState(state: Boolean): string;
@@ -90,24 +98,24 @@ Begin
   Close(f);
 End;
 
-Procedure updateStudent();
+Procedure updateStudent(leg: String);
 
 Var 
   f: T_File;
   student: T_Alumno;
-  legajo: string;
+  // legajo: string;
   flag: Boolean;
   pos: integer;
 Begin
   Assign(f, path);
   Reset(f);
-  write('Legajo: ');
-  readln(legajo);
+  write('Legajo: ', leg);
+  // readln(legajo);
   flag := False;
   While (Not Eof(f)) And (Not flag) Do
     Begin
       Read(f, student);
-      If (student.numLegajo = legajo) Then
+      If (student.numLegajo = leg) Then
         Begin
           flag := True;
           pos := FilePos(f) - 1;
@@ -119,7 +127,7 @@ Begin
   Else
     Begin
       Seek(f, pos);
-      chargeStudent(student);
+      chargeStudent(student, leg);
       Write(f, student);
     End;
   WriteLn('Se actualizo el alumno');

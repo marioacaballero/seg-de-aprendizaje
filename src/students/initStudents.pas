@@ -10,8 +10,8 @@ Type
   T_Discapacidad = array [1..5] Of boolean;
   T_Alumno = Record
     numLegajo: string[8];
-    nombre: string[30];
-    apellido: string[30];
+    nombre: string[25];
+    apellido: string[25];
     fechaNacimiento: string[8];
     estado: Boolean;
     discapacidades: T_Discapacidad;
@@ -62,7 +62,7 @@ Var
 Begin
   Case lim Of 
     1: n := 8;
-    2: n := 30;
+    2: n := 25;
     3: showBirthday(text);
   End;
   For i := 1 To n Do
@@ -94,7 +94,7 @@ Var
   i: byte;
 Begin
   Writeln;
-  For i:= 1 To 91 Do
+  For i:= 1 To 81 Do
     Write('-');
 End;
 
