@@ -30,7 +30,7 @@ Begin
         End;
     End;
   If Not find Then
-    WriteLn('No se encontro el alumno');
+    WriteLn('No se encontro el legajo ', leg);
 End;
 
 End.
