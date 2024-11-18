@@ -4,18 +4,19 @@ Unit listMenu;
 Interface
 
 {$unitPath ../students/}
+{$unitPath ../utils/}
 
-Uses crt, initStudents;
+Uses crt, initStudents, usaArbol, arbolUnit;
 
 Const 
   nOp = 4;
   opciones: array[1..nOp] Of string = ('Alumnos A-Z',
                                        'Evaluaciones de un alumno',
                                        'Alumnos por dificultad', 'Salir');
-Procedure menuLits();
+Procedure menuLits(raiz: T_PUNT);
 
 Implementation
-Procedure menuLits();
+Procedure menuLits(raiz: T_PUNT);
 
 Var 
   w: string;
@@ -71,7 +72,7 @@ Begin
         Begin
           clrscr;
           Case here Of 
-            1: showAllStudents();
+            1: LISTAR(raiz);
             2: WriteLn('Evaluaciones  de un alumno');
             3: WriteLn('Alumnos por dificultad');
             Else
