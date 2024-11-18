@@ -20,9 +20,10 @@ Type
   T_File = File Of T_Alumno;
 
 Procedure initStudentFile();
-Procedure showAllStudents();
+// Procedure showAllStudents();
 Function showBirthday(birthday: String): string;
 Function showStudent(leg, apell, nomb, fecha: String): string;
+Function line(): string;
 
 Implementation
 Procedure initStudentFile();
@@ -98,23 +99,24 @@ Begin
     Write('-');
 End;
 
-Procedure showAllStudents();
+// Procedure showAllStudents();
 
-Var 
-  f: T_File;
-  student: T_Alumno;
-Begin
-  Assign(f, path);
-  Reset(f);
-  line();
-  showStudent('Legajo', 'Apellido', 'Nombre', 'Fec Nacim.');
-  line();
-  While Not Eof(f) Do
-    Begin
-      Read(f, student);
-      showStudent(student.numLegajo, student.apellido, student.nombre, student.
-                  fechaNacimiento);
-    End;
-  Close(f);
-End;
+// Var 
+//   f: T_File;
+//   student: T_Alumno;
+// Begin
+//   Assign(f, path);
+//   Reset(f);
+//   line();
+//   showStudent('Legajo', 'Apellido', 'Nombre', 'Fec Nacim.');
+//   line();
+//   While Not Eof(f) Do
+//     Begin
+//       Read(f, student);
+
+//       showStudent(student.numLegajo, student.apellido, student.nombre, student.
+//                   fechaNacimiento);
+//     End;
+//   Close(f);
+// End;
 End.
