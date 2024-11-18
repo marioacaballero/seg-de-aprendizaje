@@ -4,8 +4,10 @@ Unit mainMenu;
 Interface
 
 {$unitPath ./}
+{$unitPath ../utils/}
 
-Uses crt, studentsMenu, testsMenu, listMenu, stadisticsMenu;
+Uses crt, studentsMenu, testsMenu, listMenu, stadisticsMenu, usaArbol, arbolUnit
+;
 
 Const 
   nOp = 5;
@@ -21,8 +23,10 @@ Var
   w: string;
   i, here: integer;
   key: Char;
+  raiz: T_PUNT;
 Begin
   here := 1;
+  initTree(raiz);
   Repeat
     clrscr;
     textcolor(white);
@@ -74,7 +78,7 @@ Begin
           Case here Of 
             1: menuStudents();
             2: menuTest();
-            3: menuLits();
+            3: menuLits(raiz);
             4: menuStadistics();
             Else
               Begin
