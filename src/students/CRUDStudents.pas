@@ -3,7 +3,10 @@ Unit CRUDStudents;
 
 Interface
 
-Uses crt, sysutils, initStudents;
+{$unitPath ../utils}
+{$unitPath ./}
+
+Uses crt, sysutils, initStudents, usaArbol, arbolUnit;
 
 Procedure createStudent(leg: String; Var key: Char);
 Procedure readStudent();
@@ -40,17 +43,22 @@ Begin
   initDiscapacidades(student);
 End;
 
-Procedure createStudent(leg: String; Var key: Char);
+// creo el estudiante y lo agrego al arbol de estudiantes
+Procedure createStudent(leg: String; Var key: Char; Var RAIZ: T_PUNT);
 
 Var 
   f: T_File;
   student: T_Alumno;
+  stud_tree: T_DATO_ARBOL;
 Begin
   Assign(f, path);
   Reset(f);
   chargeStudent(student, leg);
   Seek(f, FileSize(f));
+  stud_tree.clave := student.numLegajo;
+  stud_tree.pos_arch := FileSize(f);
   Write(f, student);
+  CARGAR_ARBOL(RAIZ, stud_tree);
   Close(f);
   key := chr(27);
   WriteLn('');
