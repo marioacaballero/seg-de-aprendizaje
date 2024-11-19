@@ -4,9 +4,10 @@ Unit studentsMenu;
 Interface
 
 {$unitPath ../students/}
-{$unitPath ../units/}
+{$unitPath ../utils/}
 
-Uses crt, initStudents, CRUDStudents, arbolUnit, usaArbol;
+Uses 
+crt, initStudents, CRUDStudents, validator, arbolUnit, usaArbol;
 
 Const 
   nOp1 = 2;
@@ -176,11 +177,22 @@ Begin
           Write('Numero de legajo: ');
           textcolor(green);
           ReadLn(leg);
-          BUSCAR(rootLeg,leg, find);
-          If (find) Then
-            findSubMenu(leg, rootLeg)
+          If (legValidator(leg)) Then
+            Begin
+              BUSCAR(rootLeg,leg, find);
+              If (find) Then
+                findSubMenu(leg, rootLeg)
+              Else
+                notFindSubMenu(leg, rootLeg, rootName);
+            End
           Else
-            notFindSubMenu(leg, rootLeg, rootName);
+            Begin
+              textcolor(red);
+              WriteLn;
+              WriteLn('Debe contener 8 digitos');
+              textcolor(green);
+              readkey;
+            End;
         End;
     End;
   Until key = chr(27);
