@@ -10,8 +10,8 @@ Type
   T_Discapacidad = array [1..5] Of boolean;
   T_Alumno = Record
     numLegajo: string[8];
-    nombre: string[25];
-    apellido: string[25];
+    nombre: string[20];
+    apellido: string[20];
     fechaNacimiento: string[8];
     estado: Boolean;
     discapacidades: T_Discapacidad;
@@ -20,10 +20,11 @@ Type
   T_File = File Of T_Alumno;
 
 Procedure initStudentFile();
-// Procedure showAllStudents();
 Function showBirthday(birthday: String): string;
-Function showStudent(leg, apell, nomb, fecha: String): string;
-Function line(): string;
+Function showStudent(leg, ap, nomb, fecha: String; d: T_Discapacidad): string;
+Function showStudentTitle(leg, ap, nomb, fecha, dif: String): string;
+Function line(tam: byte): string;
+Function showDifficulties(): string;
 
 Implementation
 Procedure initStudentFile();
@@ -63,8 +64,9 @@ Var
 Begin
   Case lim Of 
     1: n := 8;
-    2: n := 25;
+    2: n := 20;
     3: showBirthday(text);
+    4: n := 13;
   End;
   For i := 1 To n Do
     Begin
@@ -75,48 +77,85 @@ Begin
     End;
 End;
 
-Function showStudent(leg, apell, nomb, fecha: String): string;
+Function showStudentDiff(discap: T_Discapacidad): string;
+
+Var i: byte;
 Begin
-  Writeln;
+  Write(' [');
+  For i:= 1 To 5 Do
+    Begin
+      If (discap[i]) Then
+        write(' ', 'S')
+      Else
+        write(' ', 'N');
+    End;
+  Write(' ]');
+End;
+
+Function showStudent(leg, ap, nomb, fecha: String; d: T_Discapacidad): string;
+Begin
   Write('| ');
   showAllChars(leg, 1);
   Write(' | ');
-  showAllChars(apell, 2);
+  showAllChars(ap, 2);
   Write(' | ');
   showAllChars(nomb, 2);
   Write(' | ');
   showAllChars(fecha, 3);
   Write(' |');
+  showStudentDiff(d);
+  Write(' |');
+  Writeln;
 End;
 
-Function line(): string;
+Function showStudentTitle(leg, ap, nomb, fecha, dif: String): string;
+Begin
+  Write('| ');
+  showAllChars(leg, 1);
+  Write(' | ');
+  showAllChars(ap, 2);
+  Write(' | ');
+  showAllChars(nomb, 2);
+  Write(' | ');
+  showAllChars(fecha, 3);
+  Write(' | ');
+  showAllChars(dif, 4);
+  Write(' |');
+  Writeln;
+End;
+
+Function line(tam: byte): string;
 
 Var 
   i: byte;
 Begin
-  Writeln;
-  For i:= 1 To 81 Do
+  For i:= 1 To tam Do
     Write('-');
+  Writeln;
 End;
 
-// Procedure showAllStudents();
+Function difficulties(): string;
+Begin
+  WriteLn('| Dificultades:                                    |');
+  WriteLn('|                                                  |');
+  WriteLn('| 1. Problemas del habla y lenguaje                |');
+  WriteLn('| 2. Dificultad para escribir                      |');
+  WriteLn('| 3. Dificultades de aprendizaje visual            |');
+  WriteLn('| 4. Memoria y otras dificultades del pensamiento  |');
+  WriteLn('| 5. Destrezas sociales inadecuadas                |');
+  WriteLn('|                                                  |');
+  WriteLn('| En la columna estan representadas en orden       |');
+  WriteLn('| [ 1 2 3 4 5 ]                                    |');
+  WriteLn('|                                                  |');
+  WriteLn('| Se representa con S si la tiene o N si no        |');
+End;
 
-// Var 
-//   f: T_File;
-//   student: T_Alumno;
-// Begin
-//   Assign(f, path);
-//   Reset(f);
-//   line();
-//   showStudent('Legajo', 'Apellido', 'Nombre', 'Fec Nacim.');
-//   line();
-//   While Not Eof(f) Do
-//     Begin
-//       Read(f, student);
+Function showDifficulties(): string;
+Begin
+  line(52);
+  difficulties();
+  line(52);
+  WriteLn;
+End;
 
-//       showStudent(student.numLegajo, student.apellido, student.nombre, student.
-//                   fechaNacimiento);
-//     End;
-//   Close(f);
-// End;
 End.

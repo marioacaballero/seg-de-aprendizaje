@@ -127,7 +127,7 @@ Begin
       seek(f, RAIZ^.INFO.pos_arch);
       Read(f, student);
       showStudent(student.numLegajo, student.apellido, student.nombre, student.
-                  fechaNacimiento);
+                  fechaNacimiento, student.discapacidades);
       INORDEN (RAIZ^.SAD);
       Close(f);
     End;

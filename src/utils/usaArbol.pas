@@ -72,11 +72,12 @@ Begin
       Reset(f);
       Seek(f, x.pos_arch);
       Read(f, student);
-      line();
-      showStudent('Legajo', 'Apellido', 'Nombre', 'Fec Nacim.');
-      line();
+      line(87);
+      showStudentTitle('Legajo', 'Apellido', 'Nombre', 'Fec Nacim.',
+                       'Dificultades');
+      line(87);
       showStudent(student.numLegajo, student.apellido, student.nombre, student.
-                  fechaNacimiento);
+                  fechaNacimiento, student.discapacidades);
       Close(f);
     End;
 End;
@@ -94,9 +95,12 @@ Procedure LISTAR (root:T_PUNT);
 Begin
   If Not ARBOL_VACIO (root) Then
     Begin
-      line();
-      showStudent('Legajo', 'Apellido', 'Nombre', 'Fec Nacim.');
-      line();
+      showDifficulties();
+      line(87);
+      showStudentTitle('Legajo', 'Apellido', 'Nombre', 'Fec Nacim.',
+                       'Dificultades')
+      ;
+      line(87);
       INORDEN (root)
     End
   Else WRITELN ('No hay registros');
