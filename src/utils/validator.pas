@@ -3,11 +3,11 @@ Unit validator;
 
 Interface
 
-Uses sysutils;
+Uses crt, sysutils;
 
 Function legValidator(leg: String): Boolean;
-// Function birthdayValidator(birthday: String): Boolean;
-Function nameAndLastValidator(name: String): Boolean;
+Function birthdayValidator(birthday: String): Boolean;
+Procedure nameAndLastValidator(name, text: String);
 
 Implementation
 
@@ -16,25 +16,53 @@ Begin
   legValidator := Length(leg) = 8;
 End;
 
-// Function birthdayValidator(birthday: String): Boolean;
-
-// Var 
-//   day, month, year: string;
-// Begin
-//   day := StrToInt(Copy(birthday, 1, 2));
-//   month := StrToInt(Copy(birthday, 3, 2));
-//   year := Copy(birthday, 5, 4);
-
-
-
-
-//   birthdayValidator := (day > 0) And (day < 32) And (month > 0) And (month < 13)
-//                        And (Length(year) > 0) And (Length(year) < 5);
-// End;
-
-Function nameAndLastValidator(name: String): Boolean;
+Function dayValidator(day: Byte): Boolean;
 Begin
-  nameAndLastValidator := Length(name) > 2;
+  dayValidator := (day > 0) And (day < 32);
+End;
+
+Function monthValidator(month: byte): Boolean;
+Begin
+  monthValidator := (month > 0) And (month < 13);
+End;
+
+Function yearValidator(year: word): Boolean;
+Begin
+  yearValidator := (year > 1970) And (year < 2006);
+End;
+
+Function birthdayValidator(birthday: String): Boolean;
+
+Var 
+  day, month: byte;
+  year: word;
+Begin
+  day := StrToInt(Copy(birthday, 1, 2));
+  month := StrToInt(Copy(birthday, 3, 2));
+  year := StrToInt(Copy(birthday, 5, 4));
+  birthdayValidator := dayValidator(day) And monthValidator(month) And
+                       yearValidator(year);
+End;
+
+Function nameValidator(name: String): Boolean;
+Begin
+  nameValidator := Length(name) > 2;
+End;
+
+Procedure nameAndLastValidator(name, text: String);
+Begin
+  While (Not nameValidator(name)) Do
+    Begin
+      textcolor(red);
+      WriteLn('El ', text, ' debe contener al menos 3 digitos');
+      WriteLn;
+      textcolor(green);
+      If (text = 'nombre') Then
+        write('Nombres: ')
+      Else
+        Write('Apellidos: ');
+      readln(name);
+    End;
 End;
 
 End.

@@ -6,7 +6,7 @@ Interface
 {$unitPath ../utils}
 {$unitPath ./}
 
-Uses crt, sysutils, initStudents, usaArbol, arbolUnit;
+Uses crt, sysutils, initStudents, usaArbol, arbolUnit, validator;
 
 Procedure createStudent(leg: String; Var key: Char; Var rootLeg, rootName:
                         T_PUNT);
@@ -39,9 +39,11 @@ Begin
   student.numLegajo := leg;
   write('Nombres: ');
   readln(name);
+  nameAndLastValidator(name, 'nombre');
   student.nombre := LowerCase(name);
   write('Apellidos: ');
   readln(lastName);
+  nameAndLastValidator(lastName, 'apellido');
   student.apellido := LowerCase(lastName);
   write('Fecha de nacimiento (DDMMAAAA): ');
   readln(student.fechaNacimiento);
