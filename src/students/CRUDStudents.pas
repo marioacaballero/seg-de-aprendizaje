@@ -56,17 +56,19 @@ Procedure createStudent(leg: String; Var key: Char; Var rootLeg, rootName:
 Var 
   f: T_File;
   student: T_Alumno;
-  stud_tree: T_DATO_ARBOL;
+  studTreeLeg,studTreeApyN: T_DATO_ARBOL;
 Begin
   Assign(f, path);
   Reset(f);
   chargeStudent(student, leg);
   Seek(f, FileSize(f));
-  stud_tree.clave := student.numLegajo;
-  stud_tree.pos_arch := FileSize(f);
+  studTreeLeg.clave := student.numLegajo;
+  studTreeLeg.pos_arch := FileSize(f);
+  studTreeApyN.clave := student.apellido + ' ' + student.nombre;
+  studTreeApyN.pos_arch := FileSize(f);
   Write(f, student);
-  CARGAR_ARBOL(rootLeg, stud_tree);
-  CARGAR_ARBOL(rootName, stud_tree);
+  CARGAR_ARBOL(rootLeg, studTreeLeg);
+  CARGAR_ARBOL(rootName, studTreeApyN);
   Close(f);
   key := chr(27);
   WriteLn('');

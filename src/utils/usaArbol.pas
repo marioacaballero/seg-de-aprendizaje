@@ -99,7 +99,7 @@ Begin
       line();
       INORDEN (root)
     End
-  Else WRITELN ('ARBOL VACIO');
+  Else WRITELN ('No hay registros');
 End;
 
 // Procedure BAJA1(Var RAIZ:T_PUNT);

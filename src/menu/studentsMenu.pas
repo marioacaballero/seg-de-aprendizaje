@@ -104,7 +104,7 @@ Begin
     clrscr;
     titleText();
     textcolor(green);
-    // searchStudent(leg, find);
+    CONSULTA(rootLeg, leg, 'No se encontro el legajo: ' + leg);
     writeln('');
     If (key <> char(27)) Then
       Begin
