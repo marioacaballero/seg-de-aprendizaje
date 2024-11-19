@@ -12,6 +12,7 @@ Procedure nameAndLastValidator(name, text: String);
 Implementation
 
 Function legValidator(leg: String): Boolean;
+// debe validar ademas que no tenga letras
 Begin
   legValidator := Length(leg) = 8;
 End;
@@ -49,7 +50,7 @@ Begin
   nameValidator := Length(name) > 2;
 End;
 
-Procedure nameAndLastValidator(name, text: String);
+Procedure nameAndLastValidator(Var name: String; text: String);
 Begin
   While (Not nameValidator(name)) Do
     Begin
