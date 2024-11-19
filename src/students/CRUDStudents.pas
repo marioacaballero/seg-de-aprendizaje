@@ -26,6 +26,9 @@ Begin
 End;
 
 Procedure chargeStudent(Var student: T_Alumno; leg: String);
+
+Var 
+  name, lastName: string;
 Begin
   textcolor(white);
   WriteLn('Complete los datos solicitados');
@@ -34,9 +37,11 @@ Begin
   WriteLn('Legajo: ', leg);
   student.numLegajo := leg;
   write('Nombres: ');
-  readln(student.nombre);
+  readln(name);
+  student.nombre := LowerCase(name);
   write('Apellidos: ');
-  readln(student.apellido);
+  readln(lastName);
+  student.apellido := LowerCase(lastName);
   write('Fecha de nacimiento (DDMMAAAA): ');
   readln(student.fechaNacimiento);
   student.estado := True;
