@@ -5,8 +5,10 @@ Interface
 
 {$unitPath ./}
 {$unitPath ../utils/}
+{$unitPath ../students/}
 
-Uses crt, studentsMenu, testsMenu, listMenu, stadisticsMenu, usaArbol, arbolUnit
+Uses crt, studentsMenu, initStudents, testsMenu, listMenu, stadisticsMenu,
+usaArbol, arbolUnit
 ;
 
 Const 
@@ -23,10 +25,15 @@ Var
   w: string;
   i, here: integer;
   key: Char;
-  raiz: T_PUNT;
+  rootLeg: T_PUNT;
+  rootName: T_PUNT;
 Begin
   here := 1;
-  initTree(raiz);
+  // incializo el archivo de alumnos
+  initStudentFile();
+  // incializo los arboles
+  initTree(rootLeg);
+  initTreeApYNom(rootName);
   Repeat
     clrscr;
     textcolor(white);
@@ -76,9 +83,9 @@ Begin
         Begin
           clrscr;
           Case here Of 
-            1: menuStudents();
+            1: menuStudents(rootLeg, rootName);
             2: menuTest();
-            3: menuLits(raiz);
+            3: menuLits(rootName);
             4: menuStadistics();
             Else
               Begin

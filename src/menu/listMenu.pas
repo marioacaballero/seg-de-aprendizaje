@@ -13,10 +13,10 @@ Const
   opciones: array[1..nOp] Of string = ('Alumnos A-Z',
                                        'Evaluaciones de un alumno',
                                        'Alumnos por dificultad', 'Salir');
-Procedure menuLits(raiz: T_PUNT);
+Procedure menuLits(root: T_PUNT);
 
 Implementation
-Procedure menuLits(raiz: T_PUNT);
+Procedure menuLits(root: T_PUNT);
 
 Var 
   w: string;
@@ -72,7 +72,7 @@ Begin
         Begin
           clrscr;
           Case here Of 
-            1: LISTAR(raiz);
+            1: LISTAR(root);
             2: WriteLn('Evaluaciones  de un alumno');
             3: WriteLn('Alumnos por dificultad');
             Else

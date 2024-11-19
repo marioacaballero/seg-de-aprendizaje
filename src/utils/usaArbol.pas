@@ -8,11 +8,13 @@ Interface
 
 Uses CRT, arbolUnit, initStudents;
 
-Procedure CARGAR_ARBOL(Var RAIZ:T_PUNT; X: T_DATO_ARBOL);
-// Procedure CONSULTA (Var RAIZ:T_PUNT);
-Procedure LISTAR (RAIZ:T_PUNT);
+Procedure CARGAR_ARBOL(Var root:T_PUNT; X: T_DATO_ARBOL);
+Procedure CONSULTA (Var root:T_PUNT; leg: String; text: String);
+Procedure BUSCAR (root:T_PUNT; leg: String; Var find: Boolean);
+Procedure LISTAR (root:T_PUNT);
 // Procedure BAJA(Var RAIZ:T_PUNT);
-Procedure initTree(Var raiz: T_PUNT);
+Procedure initTree(Var root: T_PUNT);
+Procedure initTreeApYNom(Var root: T_PUNT);
 
 Implementation
 // Procedure AGREGAR_NODO (Var RAIZ:T_PUNT);
@@ -48,44 +50,56 @@ Implementation
 //       READLN (TECLA);
 //     End;
 // End;
-Procedure CARGAR_ARBOL(Var RAIZ:T_PUNT; X: T_DATO_ARBOL);
+Procedure CARGAR_ARBOL(Var root:T_PUNT; X: T_DATO_ARBOL);
 
 Begin
-  If (Not ARBOL_LLENO(RAIZ)) Then
-    AGREGAR (RAIZ,X);
+  If (Not ARBOL_LLENO(root)) Then
+    AGREGAR (root,X);
 End;
 
-// Procedure CONSULTA (Var RAIZ:T_PUNT);
+Procedure CONSULTA (Var root:T_PUNT; leg: String; text: String);
 
-// Var ENC: BOOLEAN;
-//   CAR,X: T_DATO;
-// Begin
-//   WRITE('BUSCAR: ');
-//   READLN (CAR);
-//   PREORDEN (RAIZ,CAR,ENC,X);
-//   If Not ENC  Then WRITELN ('NO SE ENCUENTRA' )
-//   Else MUESTRA_DATOS (X);
-//   readkey;
-// End;
-
-// Procedure BUSCAR (RAIZ:T_PUNT);
-// Begin
-//   If ARBOL_VACIO (RAIZ) Then WRITE ('ARBOL VACIO')
-//   Else CONSULTA(RAIZ);
-//   READKEY
-// End;
-
-Procedure LISTAR (RAIZ:T_PUNT);
+Var ENC: BOOLEAN;
+  X: T_DATO_ARBOL;
+  student: T_Alumno;
+  f: T_File;
 Begin
-  If Not ARBOL_VACIO (RAIZ) Then
+  PREORDEN (root, leg, ENC, X);
+  If Not ENC  Then WRITELN (text)
+  Else
+    Begin
+      Assign(f, path);
+      Reset(f);
+      Seek(f, x.pos_arch);
+      Read(f, student);
+      line();
+      showStudent('Legajo', 'Apellido', 'Nombre', 'Fec Nacim.');
+      line();
+      showStudent(student.numLegajo, student.apellido, student.nombre, student.
+                  fechaNacimiento);
+      Close(f);
+    End;
+End;
+
+Procedure BUSCAR (root:T_PUNT; leg: String; Var find: Boolean);
+
+Var 
+  X: T_DATO_ARBOL;
+Begin
+  If ARBOL_VACIO (root) Then WRITE ('No hay registros')
+  Else PREORDEN (root, leg, find, X);;
+End;
+
+Procedure LISTAR (root:T_PUNT);
+Begin
+  If Not ARBOL_VACIO (root) Then
     Begin
       line();
       showStudent('Legajo', 'Apellido', 'Nombre', 'Fec Nacim.');
       line();
-      INORDEN (RAIZ)
+      INORDEN (root)
     End
   Else WRITELN ('ARBOL VACIO');
-  READKEY
 End;
 
 // Procedure BAJA1(Var RAIZ:T_PUNT);
@@ -117,22 +131,42 @@ End;
 //   READKEY
 // End;
 
-Procedure initTree(Var raiz: T_PUNT);
+Procedure initTree(Var root: T_PUNT);
 
 Var 
   f: T_File;
-  data: T_Alumno;
+  student: T_Alumno;
   treeData: T_DATO_ARBOL;
 Begin
-  CREAR_ARBOL(raiz);
+  CREAR_ARBOL(root);
   Assign(f, path);
   Reset(f);
-  While (Not Eof(f)) And (Not ARBOL_LLENO(raiz)) Do
+  While (Not Eof(f)) And (Not ARBOL_LLENO(root)) Do
     Begin
-      Read(f, data);
-      treeData.clave := data.numLegajo;
+      Read(f, student);
+      treeData.clave := student.numLegajo;
       treeData.pos_arch := FilePos(f) - 1;
-      CARGAR_ARBOL(raiz, treeData);
+      CARGAR_ARBOL(root, treeData);
+    End;
+  Close(f);
+End;
+
+Procedure initTreeApYNom(Var root: T_PUNT);
+
+Var 
+  f: T_File;
+  student: T_Alumno;
+  treeData: T_DATO_ARBOL;
+Begin
+  CREAR_ARBOL(root);
+  Assign(f, path);
+  Reset(f);
+  While (Not Eof(f)) And (Not ARBOL_LLENO(root)) Do
+    Begin
+      Read(f, student);
+      treeData.clave := student.apellido + ' ' + student.nombre;
+      treeData.pos_arch := FilePos(f) - 1;
+      CARGAR_ARBOL(root, treeData);
     End;
   Close(f);
 End;

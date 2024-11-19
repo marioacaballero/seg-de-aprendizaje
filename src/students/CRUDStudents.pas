@@ -8,8 +8,9 @@ Interface
 
 Uses crt, sysutils, initStudents, usaArbol, arbolUnit;
 
-Procedure createStudent(leg: String; Var key: Char);
-Procedure readStudent();
+Procedure createStudent(leg: String; Var key: Char; Var rootLeg, rootName:
+                        T_PUNT);
+Procedure readStudent(Var rootLeg: T_PUNT);
 Procedure updateStudent(leg: String);
 Procedure deleteStudent();
 
@@ -49,7 +50,8 @@ Begin
 End;
 
 // creo el estudiante y lo agrego al arbol de estudiantes
-Procedure createStudent(leg: String; Var key: Char; Var RAIZ: T_PUNT);
+Procedure createStudent(leg: String; Var key: Char; Var rootLeg, rootName:
+                        T_PUNT);
 
 Var 
   f: T_File;
@@ -63,7 +65,8 @@ Begin
   stud_tree.clave := student.numLegajo;
   stud_tree.pos_arch := FileSize(f);
   Write(f, student);
-  CARGAR_ARBOL(RAIZ, stud_tree);
+  CARGAR_ARBOL(rootLeg, stud_tree);
+  CARGAR_ARBOL(rootName, stud_tree);
   Close(f);
   key := chr(27);
   WriteLn('');
@@ -79,36 +82,14 @@ Begin
     Write('Inactivo');
 End;
 
-Procedure readStudent();
+Procedure readStudent(Var rootLeg: T_PUNT);
 
 Var 
-  f: T_File;
-  student: T_Alumno;
   legajo: string;
-  flag: Boolean;
 Begin
-  Assign(f, path);
-  Reset(f);
   write('Legajo: ');
   readln(legajo);
-  flag := False;
-  While (Not Eof(f)) And (Not flag) Do
-    Begin
-      Read(f, student);
-      If (student.numLegajo = legajo) Then
-        Begin
-          flag := True;
-          WriteLn('Legajo: ', student.numLegajo);
-          WriteLn('Nombres: ', student.nombre);
-          WriteLn('Apellidos: ', student.apellido);
-          WriteLn('Fecha de nacimiento: ', showBirthday(student.fechaNacimiento)
-          );
-          WriteLn('Estado: ', showState(student.estado));
-        End;
-    End;
-  If Not flag Then
-    WriteLn('No se encontro el legajo');
-  Close(f);
+  CONSULTA(rootLeg, legajo, 'No se encontro el legajo');
 End;
 
 Procedure updateStudent(leg: String);

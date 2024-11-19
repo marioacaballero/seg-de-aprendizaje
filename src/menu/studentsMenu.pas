@@ -4,8 +4,9 @@ Unit studentsMenu;
 Interface
 
 {$unitPath ../students/}
+{$unitPath ../units/}
 
-Uses crt, initStudents, CRUDStudents, searchUnit;
+Uses crt, initStudents, CRUDStudents, arbolUnit, usaArbol;
 
 Const 
   nOp1 = 2;
@@ -14,7 +15,7 @@ Const
   opciones2: array[1..nOp2] Of string = ('Modificar', 'Dar de baja',
                                          'Ingresar Otro');
 
-Procedure menuStudents();
+Procedure menuStudents(Var rootLeg, rootName: T_PUNT);
 
 Implementation
 
@@ -29,7 +30,8 @@ Begin
   writeln('');
 End;
 
-Procedure findSubMenu(leg: String; find: boolean);
+Procedure findSubMenu(leg: String; Var rootLeg:
+                      T_PUNT);
 
 Var 
   i, here: integer;
@@ -40,7 +42,7 @@ Begin
     clrscr;
     titleText();
     textcolor(green);
-    searchStudent(leg, find);
+    CONSULTA(rootLeg, leg, '');
     writeln('');
     writeln('');
     For i:= 1 To nOp2 Do
@@ -78,10 +80,8 @@ Begin
         Begin
           clrscr;
           Case here Of 
-            // 1: createStudent();
             1: updateStudent(leg);
             2: deleteStudent();
-            // 4: readStudent();
             Else
               Begin
                 key := chr(27);
@@ -92,7 +92,8 @@ Begin
 
 End;
 
-Procedure notFindSubMenu(leg: String; find: boolean);
+Procedure notFindSubMenu(leg: String; Var rootLeg, rootName:
+                         T_PUNT);
 
 Var 
   i, here: integer;
@@ -103,7 +104,7 @@ Begin
     clrscr;
     titleText();
     textcolor(green);
-    searchStudent(leg, find);
+    // searchStudent(leg, find);
     writeln('');
     If (key <> char(27)) Then
       Begin
@@ -142,10 +143,7 @@ Begin
             Begin
               clrscr;
               Case here Of 
-                1: createStudent(leg, key);
-                // 1: updateStudent();
-                // 2: deleteStudent();
-                // 2: readStudent();
+                1: createStudent(leg, key, rootLeg, rootName);
                 Else
                   Begin
                     key := chr(27);
@@ -158,15 +156,13 @@ Begin
 
 End;
 
-Procedure menuStudents();
+Procedure menuStudents(Var rootLeg, rootName: T_PUNT);
 
 Var 
   w, leg: string;
   find: boolean;
   key: Char;
 Begin
-  // incializo el archivo de alumnos
-  initStudentFile();
   Repeat
     clrscr;
     Begin
@@ -180,11 +176,11 @@ Begin
           Write('Numero de legajo: ');
           textcolor(green);
           ReadLn(leg);
-          searchStudent(leg, find);
+          BUSCAR(rootLeg,leg, find);
           If (find) Then
-            findSubMenu(leg, find)
+            findSubMenu(leg, rootLeg)
           Else
-            notFindSubMenu(leg, find);
+            notFindSubMenu(leg, rootLeg, rootName);
         End;
     End;
   Until key = chr(27);
