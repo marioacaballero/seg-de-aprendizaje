@@ -1,10 +1,9 @@
 
-Unit CRUDStudents;
+Unit CRUD_stud;
 
 Interface
 
 {$unitPath ../utils}
-{$unitPath ./}
 
 Uses crt, sysutils, initStudents, usaArbol, arbolUnit, validator;
 
