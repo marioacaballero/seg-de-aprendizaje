@@ -30,8 +30,7 @@ Begin
   writeln('');
 End;
 
-Procedure findSubMenu(leg: String; Var rootLeg:
-                      T_PUNT);
+Procedure findSubMenu(leg:String; Var rootLeg:T_PUNT);
 
 Var 
   i, here: integer;
@@ -42,7 +41,7 @@ Begin
     clrscr;
     titleText();
     textcolor(green);
-    CONSULTA(rootLeg, leg, '');
+    showFindStudent(rootLeg);
     writeln('');
     writeln('');
     For i:= 1 To nOp2 Do
@@ -80,13 +79,14 @@ Begin
         Begin
           clrscr;
           Case here Of 
-            1: updateStudent(leg);
+            1: updateStudent(rootLeg);
             2: deleteStudent();
             Else
               Begin
                 key := chr(27);
               End;
           End;
+          readkey;
         End;
   Until key = chr(27);
 
@@ -104,7 +104,8 @@ Begin
     clrscr;
     titleText();
     textcolor(green);
-    CONSULTA(rootLeg, leg, 'No se encontro el legajo: ' + leg);
+    // readStudent(leg, rootLeg);
+    WriteLn('No se encontro');
     writeln('');
     If (key <> char(27)) Then
       Begin
@@ -188,7 +189,7 @@ Begin
             Begin
               textcolor(red);
               WriteLn;
-              WriteLn('Debe contener 8 digitos');
+              WriteLn('Debe contener 8 numeros');
               textcolor(green);
               readkey;
             End;

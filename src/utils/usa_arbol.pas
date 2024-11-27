@@ -11,7 +11,7 @@ Uses crt, arbol_unit, stud_entity, init_stud_file, stud_display, test_entity,
 init_test_file;
 
 Procedure CARGAR_ARBOL(Var root:T_PUNT; X: T_DATO_ARBOL);
-Procedure CONSULTA (Var root:T_PUNT; leg: String; text: String);
+Procedure CONSULTA (Var root:T_PUNT; leg: String);
 Procedure BUSCAR (root:T_PUNT; leg: String; Var find: Boolean);
 Procedure LISTAR (root:T_PUNT);
 // Procedure BAJA(Var RAIZ:T_PUNT);
@@ -60,15 +60,16 @@ Begin
     AGREGAR (root,X);
 End;
 
-Procedure CONSULTA (Var root:T_PUNT; leg: String; text: String);
+Procedure CONSULTA (Var root:T_PUNT; leg: String);
 
-Var ENC: BOOLEAN;
+Var 
+  ENC: Boolean;
   X: T_DATO_ARBOL;
   student: T_Alumno;
   f: T_File_Alum;
 Begin
   PREORDEN (root, leg, ENC, X);
-  If Not ENC  Then WRITELN (text)
+  If Not ENC  Then WRITELN ('No encontrado')
   Else
     Begin
       Assign(f, path_alum);

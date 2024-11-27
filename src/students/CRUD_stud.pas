@@ -7,13 +7,14 @@ Interface
 {$unitPath ./}
 
 Uses crt, sysutils, stud_entity, init_stud_file, usa_arbol, arbol_unit,
-validator;
+validator, stud_display;
 
 Procedure createStudent(leg: String; Var key: Char; Var rootLeg, rootName:
                         T_PUNT);
-Procedure readStudent(Var rootLeg: T_PUNT);
-Procedure updateStudent(leg: String);
+Procedure readStudent(leg: String; Var root:T_PUNT);
+Procedure updateStudent(root: T_PUNT);
 Procedure deleteStudent();
+Procedure showFindStudent(root: T_PUNT);
 
 Implementation
 
@@ -27,12 +28,55 @@ Begin
     student.discapacidades[i] := False;
 End;
 
+Procedure checkData(Var data: String; text: String);
+Begin
+  Case text Of 
+    'nombre':
+              Begin
+                While (Not nameValidator(data)) Do
+                  Begin
+                    textcolor(red);
+                    WriteLn('El nombre debe contener al menos 3 digitos');
+                    WriteLn;
+                    textcolor(green);
+                    write('Nombres: ');
+                    readln(data);
+                  End;
+              End;
+    'apellido':
+                Begin
+                  While (Not lastNameValidator(data)) Do
+                    Begin
+                      textcolor(red);
+                      WriteLn('El apellido debe contener al menos 3 digitos');
+                      WriteLn;
+                      textcolor(green);
+                      write('Apellidos: ');
+                      readln(data);
+                    End;
+                End;
+    'fecha':
+             Begin
+               While (Not birthdayValidator(data)) Do
+                 Begin
+                   textcolor(red);
+                   WriteLn('Fecha invalida');
+                   WriteLn;
+                   textcolor(green);
+                   write('Fecha de nacimiento (DDMMAAAA): ');
+                   readln(data);
+                 End;
+             End;
+  End;
+End;
+
 Procedure chargeStudent(Var student: T_Alumno; leg: String);
 
 Var 
-  name, lastName: string;
+  name, lastName, date: string;
 Begin
   textcolor(white);
+  WriteLn('');
   WriteLn('Complete los datos solicitados');
   WriteLn('');
   textcolor(green);
@@ -40,14 +84,16 @@ Begin
   student.numLegajo := leg;
   write('Nombres: ');
   readln(name);
-  nameAndLastValidator(name, 'nombre');
+  checkData(name, 'nombre');
   student.nombre := LowerCase(name);
   write('Apellidos: ');
   readln(lastName);
-  nameAndLastValidator(lastName, 'apellido');
+  checkData(lastName, 'apellido');
   student.apellido := LowerCase(lastName);
   write('Fecha de nacimiento (DDMMAAAA): ');
-  readln(student.fechaNacimiento);
+  readln(date);
+  checkData(date, 'fecha');
+  student.fechaNacimiento := date;
   student.estado := True;
   initDiscapacidades(student);
 End;
@@ -79,59 +125,55 @@ Begin
   WriteLn('Alumno dado de alta');
 End;
 
-Function showState(state: Boolean): string;
-Begin
-  If state Then
-    Write('Activo')
-  Else
-    Write('Inactivo');
-End;
+// Function showState(state: Boolean): string;
+// Begin
+//   If state Then
+//     Write('Activo')
+//   Else
+//     Write('Inactivo');
+// End;
 
-Procedure readStudent(Var rootLeg: T_PUNT);
-
-Var 
-  legajo: string;
-Begin
-  write('Legajo: ');
-  readln(legajo);
-  CONSULTA(rootLeg, legajo, 'No se encontro el legajo');
-End;
-
-Procedure updateStudent(leg: String);
+Procedure showFindStudent(root: T_PUNT);
 
 Var 
   f: T_File_Alum;
   student: T_Alumno;
-  // legajo: string;
-  flag: Boolean;
-  pos: integer;
 Begin
   Assign(f, path_alum);
   Reset(f);
-  write('Legajo: ', leg);
-  // readln(legajo);
-  flag := False;
-  While (Not Eof(f)) And (Not flag) Do
-    Begin
-      Read(f, student);
-      If (student.numLegajo = leg) Then
-        Begin
-          flag := True;
-          pos := FilePos(f) - 1;
-          // le saco 1 porque ya se movio al siguiente
-        End;
-    End;
-  If Not flag Then
-    WriteLn('No se encontro el legajo')
-  Else
-    Begin
-      Seek(f, pos);
-      chargeStudent(student, leg);
-      Write(f, student);
-    End;
+  Seek(f, root^.INFO.pos_arch);
+  Read(f, student);
+  showStudent(student.numLegajo, student.apellido, student.nombre, student.
+              fechaNacimiento, student.discapacidades);
+  closeStudFile(f);
+End;
+
+Procedure readStudent(leg: String; Var root:T_PUNT);
+
+Begin
+  CONSULTA(root, leg);
+End;
+
+Procedure updateStudent(root: T_PUNT);
+
+Var 
+  f: T_File_Alum;
+  student: T_Alumno;
+Begin
+  clrscr;
+  Assign(f, path_alum);
+  Reset(f);
+  Seek(f, root^.INFO.pos_arch);
+  Read(f, student);
+  showStudent(student.numLegajo, student.apellido, student.nombre, student.
+              fechaNacimiento, student.discapacidades);
+  chargeStudent(student, student.numLegajo);
+  // para dejarlo donde estaba hago un seek
+  Seek(f, filepos(f) - 1);
+  Write(f, student);
+  textcolor(white);
   WriteLn('Se actualizo el alumno');
   closeStudFile(f);
-
 End;
 
 Procedure deleteStudent();
