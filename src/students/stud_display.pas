@@ -6,8 +6,9 @@ Interface
 Uses stud_entity;
 
 Function showBirthday(birthday: String): string;
-Function showStudent(leg, ap, nomb, fecha: String; d: T_Discapacidad): string;
-Function showStudentTitle(leg, ap, nomb, fecha, dif: String): string;
+Function showStudent(leg, ap, nomb, fecha: String; stat:boolean; d:
+                     T_Discapacidad): string;
+Function showStudentTitle(): string;
 Function line(tam: byte): string;
 Function showDifficulties(): string;
 
@@ -38,6 +39,7 @@ Begin
     2: n := 20;
     3: showBirthday(text);
     4: n := 13;
+    5: n := 6;
   End;
   For i := 1 To n Do
     Begin
@@ -63,7 +65,16 @@ Begin
   Write(' ]');
 End;
 
-Function showStudent(leg, ap, nomb, fecha: String; d: T_Discapacidad): string;
+Function showStudState(state: Boolean): string;
+Begin
+  If state Then
+    write(' Alta  ')
+  Else
+    Write(' Baja  ');
+End;
+
+Function showStudent(leg, ap, nomb, fecha: String; stat:boolean; d:
+                     T_Discapacidad): string;
 Begin
   Write('| ');
   showAllChars(leg, 1);
@@ -73,24 +84,28 @@ Begin
   showAllChars(nomb, 2);
   Write(' | ');
   showAllChars(fecha, 3);
+  Write(' |');
+  showStudState(stat);
   Write(' |');
   showStudentDiff(d);
   Write(' |');
   Writeln;
 End;
 
-Function showStudentTitle(leg, ap, nomb, fecha, dif: String): string;
+Function showStudentTitle(): string;
 Begin
   Write('| ');
-  showAllChars(leg, 1);
+  showAllChars('Legajo', 1);
   Write(' | ');
-  showAllChars(ap, 2);
+  showAllChars('Apellido', 2);
   Write(' | ');
-  showAllChars(nomb, 2);
+  showAllChars('Nombre', 2);
   Write(' | ');
-  showAllChars(fecha, 3);
+  showAllChars('Fec Nacim.', 3);
   Write(' | ');
-  showAllChars(dif, 4);
+  showAllChars('Estado', 5);
+  Write(' | ');
+  showAllChars('Dificultades', 4);
   Write(' |');
   Writeln;
 End;

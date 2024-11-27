@@ -11,7 +11,7 @@ Uses crt, arbol_unit, stud_entity, init_stud_file, stud_display, test_entity,
 init_test_file;
 
 Procedure CARGAR_ARBOL(Var root:T_PUNT; X: T_DATO_ARBOL);
-Procedure CONSULTA (Var root:T_PUNT; leg: String);
+Procedure CONSULTA (Var root:T_PUNT; leg: String; Var X: T_DATO_ARBOL);
 Procedure BUSCAR (root:T_PUNT; leg: String; Var find: Boolean);
 Procedure LISTAR (root:T_PUNT);
 // Procedure BAJA(Var RAIZ:T_PUNT);
@@ -60,11 +60,10 @@ Begin
     AGREGAR (root,X);
 End;
 
-Procedure CONSULTA (Var root:T_PUNT; leg: String);
+Procedure CONSULTA (Var root:T_PUNT; leg: String; Var X: T_DATO_ARBOL);
 
 Var 
   ENC: Boolean;
-  X: T_DATO_ARBOL;
   student: T_Alumno;
   f: T_File_Alum;
 Begin
@@ -76,12 +75,11 @@ Begin
       Reset(f);
       Seek(f, x.pos_arch);
       Read(f, student);
-      line(87);
-      showStudentTitle('Legajo', 'Apellido', 'Nombre', 'Fec Nacim.',
-                       'Dificultades');
-      line(87);
+      line(96);
+      showStudentTitle();
+      line(96);
       showStudent(student.numLegajo, student.apellido, student.nombre, student.
-                  fechaNacimiento, student.discapacidades);
+                  fechaNacimiento, student.estado,student.discapacidades);
       closeStudFile(f);
     End;
 End;
@@ -100,11 +98,9 @@ Begin
   If Not ARBOL_VACIO (root) Then
     Begin
       showDifficulties();
-      line(87);
-      showStudentTitle('Legajo', 'Apellido', 'Nombre', 'Fec Nacim.',
-                       'Dificultades')
-      ;
-      line(87);
+      line(96);
+      showStudentTitle();
+      line(96);
       INORDEN (root)
     End
   Else WRITELN ('No hay registros');

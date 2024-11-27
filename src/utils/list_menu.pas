@@ -72,7 +72,7 @@ Begin
           clrscr;
           Case here Of 
             1: LISTAR(root);
-            2: WriteLn('Evaluaciones  de un alumno');
+            2: WriteLn('Evaluaciones  de un alumno ');
             3: WriteLn('Alumnos por dificultad');
             Else
               Begin

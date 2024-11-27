@@ -41,7 +41,8 @@ Begin
     clrscr;
     titleText();
     textcolor(green);
-    showFindStudent(rootLeg);
+    writeln(leg);
+    readStudent(leg, rootLeg);
     writeln('');
     writeln('');
     For i:= 1 To nOp2 Do
@@ -79,8 +80,8 @@ Begin
         Begin
           clrscr;
           Case here Of 
-            1: updateStudent(rootLeg);
-            2: deleteStudent();
+            1: updateStudent(rootLeg, leg);
+            2: deleteStudent(rootLeg, leg);
             Else
               Begin
                 key := chr(27);

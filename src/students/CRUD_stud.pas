@@ -12,12 +12,11 @@ validator, stud_display;
 Procedure createStudent(leg: String; Var key: Char; Var rootLeg, rootName:
                         T_PUNT);
 Procedure readStudent(leg: String; Var root:T_PUNT);
-Procedure updateStudent(root: T_PUNT);
-Procedure deleteStudent();
-Procedure showFindStudent(root: T_PUNT);
+Procedure updateStudent(Var root: T_PUNT; leg: String);
+Procedure deleteStudent(Var root: T_PUNT; leg: String);
+Procedure showFindStudent(Var root: T_PUNT);
 
 Implementation
-
 
 Procedure initDiscapacidades(Var student: T_Alumno);
 
@@ -70,10 +69,10 @@ Begin
   End;
 End;
 
-Procedure chargeStudent(Var student: T_Alumno; leg: String);
+Procedure chargeStudent(Var student: T_Alumno; leg, typ: String);
 
 Var 
-  name, lastName, date: string;
+  name, lastName, date, state: string;
 Begin
   textcolor(white);
   WriteLn('');
@@ -94,8 +93,23 @@ Begin
   readln(date);
   checkData(date, 'fecha');
   student.fechaNacimiento := date;
-  student.estado := True;
-  initDiscapacidades(student);
+  Case typ Of 
+    'mod':
+           Begin
+             If (student.estado = false) Then
+               Begin
+                 Write('Dar de alta? S/N: ');
+                 ReadLn(state);
+                 If (lowercase(state) = 's') Then
+                   student.estado := True;
+               End
+           End;
+    'crea':
+            Begin
+              student.estado := True;
+              initDiscapacidades(student);
+            End;
+  End;
 End;
 
 // creo el estudiante y lo agrego al arbol de estudiantes
@@ -109,7 +123,7 @@ Var
 Begin
   Assign(f, path_alum);
   Reset(f);
-  chargeStudent(student, leg);
+  chargeStudent(student, leg, 'crea');
   Seek(f, FileSize(f));
   studTreeLeg.clave := student.numLegajo;
   studTreeLeg.pos_arch := FileSize(f);
@@ -125,15 +139,7 @@ Begin
   WriteLn('Alumno dado de alta');
 End;
 
-// Function showState(state: Boolean): string;
-// Begin
-//   If state Then
-//     Write('Activo')
-//   Else
-//     Write('Inactivo');
-// End;
-
-Procedure showFindStudent(root: T_PUNT);
+Procedure showFindStudent(Var root: T_PUNT);
 
 Var 
   f: T_File_Alum;
@@ -144,64 +150,61 @@ Begin
   Seek(f, root^.INFO.pos_arch);
   Read(f, student);
   showStudent(student.numLegajo, student.apellido, student.nombre, student.
-              fechaNacimiento, student.discapacidades);
+              fechaNacimiento, student.estado, student.discapacidades);
   closeStudFile(f);
 End;
 
 Procedure readStudent(leg: String; Var root:T_PUNT);
 
+Var 
+  x: T_DATO_ARBOL;
 Begin
-  CONSULTA(root, leg);
+  CONSULTA(root, leg, x);
 End;
 
-Procedure updateStudent(root: T_PUNT);
+Procedure updateStudent(Var root: T_PUNT; leg: String);
 
 Var 
   f: T_File_Alum;
   student: T_Alumno;
+  x: T_DATO_ARBOL;
 Begin
   clrscr;
+  CONSULTA(root, leg, x);
   Assign(f, path_alum);
   Reset(f);
-  Seek(f, root^.INFO.pos_arch);
+  Seek(f, x.pos_arch);
   Read(f, student);
-  showStudent(student.numLegajo, student.apellido, student.nombre, student.
-              fechaNacimiento, student.discapacidades);
-  chargeStudent(student, student.numLegajo);
+  chargeStudent(student, student.numLegajo, 'mod');
   // para dejarlo donde estaba hago un seek
   Seek(f, filepos(f) - 1);
   Write(f, student);
   textcolor(white);
+  WriteLn('');
   WriteLn('Se actualizo el alumno');
   closeStudFile(f);
 End;
 
-Procedure deleteStudent();
+Procedure deleteStudent(Var root: T_PUNT; leg: String);
 
 Var 
   f: T_File_Alum;
   student: T_Alumno;
-  legajo: string;
-  flag: Boolean;
+  x: T_DATO_ARBOL;
 Begin
+  clrscr;
+  CONSULTA(root, leg, x);
   Assign(f, path_alum);
   Reset(f);
-  write('Legajo: ');
-  readln(legajo);
-  flag := False;
-  While (Not Eof(f)) And (Not flag) Do
-    Begin
-      Read(f, student);
-      If (student.numLegajo = legajo) Then
-        Begin
-          flag := True;
-          student.estado := False;
-          Write(f, student);
-          writeln('Se elimino el alumno');
-        End;
-    End;
-  If Not flag Then
-    WriteLn('No se encontro el legajo');
+  Seek(f, x.pos_arch);
+  Read(f, student);
+  student.estado := false;
+  // para dejarlo donde estaba hago un seek
+  Seek(f, filepos(f) - 1);
+  Write(f, student);
+  textcolor(white);
+  WriteLn('');
+  WriteLn('Alumno dado de baja');
   closeStudFile(f);
 End;
 End.
