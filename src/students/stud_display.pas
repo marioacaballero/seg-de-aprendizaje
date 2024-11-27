@@ -3,7 +3,7 @@ Unit stud_display;
 
 Interface
 
-Uses stud_entity;
+Uses crt, stud_entity;
 
 Function showBirthday(birthday: String): string;
 Function showStudent(leg, ap, nomb, fecha: String; stat:boolean; d:
@@ -11,6 +11,7 @@ Function showStudent(leg, ap, nomb, fecha: String; stat:boolean; d:
 Function showStudentTitle(): string;
 Function line(tam: byte): string;
 Function showDifficulties(): string;
+Procedure showUpdateMenu(Var resp: byte; alta: Boolean);
 
 Implementation
 
@@ -141,6 +142,23 @@ Begin
   line(52);
   difficulties();
   line(52);
+  WriteLn;
+End;
+
+Procedure showUpdateMenu(Var resp: byte; alta: Boolean);
+Begin
+  WriteLn;
+  Textcolor(white);
+  WriteLn('Que desea modificar, elija 0 para salir: ');
+  WriteLn;
+  Textcolor(green);
+  writeln('1: Datos personales');
+  writeln('2: Dificultades');
+  If (Not alta) Then writeln('3: Dar de alta');
+  Textcolor(white);
+  WriteLn;
+  write('Opcion: ');
+  ReadLn(resp);
   WriteLn;
 End;
 

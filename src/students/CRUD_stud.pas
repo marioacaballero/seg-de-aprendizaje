@@ -69,6 +69,31 @@ Begin
   End;
 End;
 
+Procedure chargeDif(Var student: T_Alumno);
+
+Var 
+  dif: array[1..5] Of string = ('Problemas del habla y lenguaje',
+                                'Dificultad para escribir',
+                                'Dificultades de aprendizaje visual',
+                                'Memoria y otras dificultades del pensamiento',
+                                'Destrezas sociales inadecuadas');
+  i: byte;
+  resp: string;
+Begin
+  textcolor(white);
+  WriteLn;
+  WriteLn('Dificultades:');
+  WriteLn;
+  textcolor(green);
+  For i:= 1 To 5 Do
+    Begin
+      write(dif[i], ' S/N: ');
+      ReadLn(resp);
+      If (LowerCase(resp) = 's') Then
+        student.discapacidades[i] := true;
+    End;
+End;
+
 Procedure chargeStudent(Var student: T_Alumno; leg, typ: String);
 
 Var 
@@ -93,23 +118,11 @@ Begin
   readln(date);
   checkData(date, 'fecha');
   student.fechaNacimiento := date;
-  Case typ Of 
-    'mod':
-           Begin
-             If (student.estado = false) Then
-               Begin
-                 Write('Dar de alta? S/N: ');
-                 ReadLn(state);
-                 If (lowercase(state) = 's') Then
-                   student.estado := True;
-               End
-           End;
-    'crea':
-            Begin
-              student.estado := True;
-              initDiscapacidades(student);
-            End;
-  End;
+  If ( typ = 'crea') Then
+    Begin
+      student.estado := True;
+      initDiscapacidades(student);
+    End;
 End;
 
 // creo el estudiante y lo agrego al arbol de estudiantes
@@ -168,6 +181,7 @@ Var
   f: T_File_Alum;
   student: T_Alumno;
   x: T_DATO_ARBOL;
+  resp: byte;
 Begin
   clrscr;
   CONSULTA(root, leg, x);
@@ -175,13 +189,18 @@ Begin
   Reset(f);
   Seek(f, x.pos_arch);
   Read(f, student);
-  chargeStudent(student, student.numLegajo, 'mod');
+  showUpdateMenu(resp, student.estado);
+  Case resp Of 
+    1: chargeStudent(student, student.numLegajo, 'mod');
+    2: chargeDif(student);
+    3: student.estado := True;
+  End;
   // para dejarlo donde estaba hago un seek
   Seek(f, filepos(f) - 1);
   Write(f, student);
   textcolor(white);
   WriteLn('');
-  WriteLn('Se actualizo el alumno');
+  If (resp <> 0) Then WriteLn('Se actualizo el alumno');
   closeStudFile(f);
 End;
 
