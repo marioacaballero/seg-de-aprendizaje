@@ -3,9 +3,11 @@ Unit CRUD_stud;
 
 Interface
 
-{$unitPath ../utils}
+{$unitPath ../utils/}
+{$unitPath ./}
 
-Uses crt, sysutils, initStudents, usaArbol, arbolUnit, validator;
+Uses crt, sysutils, stud_entity, init_stud_file, usa_arbol, arbol_unit,
+validator;
 
 Procedure createStudent(leg: String; Var key: Char; Var rootLeg, rootName:
                         T_PUNT);
@@ -55,11 +57,11 @@ Procedure createStudent(leg: String; Var key: Char; Var rootLeg, rootName:
                         T_PUNT);
 
 Var 
-  f: T_File;
+  f: T_File_Alum;
   student: T_Alumno;
   studTreeLeg,studTreeApyN: T_DATO_ARBOL;
 Begin
-  Assign(f, path);
+  Assign(f, path_alum);
   Reset(f);
   chargeStudent(student, leg);
   Seek(f, FileSize(f));
@@ -70,7 +72,7 @@ Begin
   Write(f, student);
   CARGAR_ARBOL(rootLeg, studTreeLeg);
   CARGAR_ARBOL(rootName, studTreeApyN);
-  Close(f);
+  closeStudFile(f);
   key := chr(27);
   WriteLn('');
   textcolor(white);
@@ -98,13 +100,13 @@ End;
 Procedure updateStudent(leg: String);
 
 Var 
-  f: T_File;
+  f: T_File_Alum;
   student: T_Alumno;
   // legajo: string;
   flag: Boolean;
   pos: integer;
 Begin
-  Assign(f, path);
+  Assign(f, path_alum);
   Reset(f);
   write('Legajo: ', leg);
   // readln(legajo);
@@ -128,19 +130,19 @@ Begin
       Write(f, student);
     End;
   WriteLn('Se actualizo el alumno');
-  Close(f);
+  closeStudFile(f);
 
 End;
 
 Procedure deleteStudent();
 
 Var 
-  f: T_File;
+  f: T_File_Alum;
   student: T_Alumno;
   legajo: string;
   flag: Boolean;
 Begin
-  Assign(f, path);
+  Assign(f, path_alum);
   Reset(f);
   write('Legajo: ');
   readln(legajo);
@@ -158,6 +160,6 @@ Begin
     End;
   If Not flag Then
     WriteLn('No se encontro el legajo');
-  Close(f);
+  closeStudFile(f);
 End;
 End.

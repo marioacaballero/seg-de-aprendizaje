@@ -1,12 +1,11 @@
 
-Unit listMenu;
+Unit list_menu;
 
 Interface
 
-{$unitPath ../students/}
 {$unitPath ../utils/}
 
-Uses crt, initStudents, usaArbol, arbolUnit;
+Uses crt, usa_arbol, arbol_unit;
 
 Const 
   nOp = 4;

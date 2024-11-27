@@ -1,11 +1,11 @@
 
-Unit arbolUnit;
+Unit arbol_unit;
 
 Interface
 
 {$unitPath ../students/}
 
-Uses initStudents;
+Uses stud_entity, stud_display, init_stud_file;
 
 Type 
   T_DATO_ARBOL = Record
@@ -116,20 +116,20 @@ End;
 Procedure INORDEN(Var RAIZ:T_PUNT);
 
 Var 
-  f: T_File;
+  f: T_File_Alum;
   student: T_Alumno;
 Begin
   If RAIZ <> Nil Then
     Begin
       INORDEN (RAIZ^.SAI);
-      Assign(f, path);
+      Assign(f, path_alum);
       reset(f);
       seek(f, RAIZ^.INFO.pos_arch);
       Read(f, student);
       showStudent(student.numLegajo, student.apellido, student.nombre, student.
                   fechaNacimiento, student.discapacidades);
       INORDEN (RAIZ^.SAD);
-      Close(f);
+      closeStudFile(f);
     End;
 End;
 

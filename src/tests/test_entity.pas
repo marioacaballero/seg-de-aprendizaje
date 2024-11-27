@@ -7,7 +7,7 @@ Const
   path_test = './assets/test.dat';
 
 Type 
-  T_Seguimiento = array [1..5] Of [0..4];
+  T_Seguimiento = array [1..5] Of Integer;
   T_Test = Record
     numLegajo: string[8];
     fechaEval: string[8];

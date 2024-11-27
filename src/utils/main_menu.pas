@@ -1,15 +1,14 @@
 
-Unit mainMenu;
+Unit main_menu;
 
 Interface
 
-{$unitPath ./}
-{$unitPath ../utils/}
 {$unitPath ../students/}
+{$unitPath ../tests/}
+{$unitPath ./}
 
-Uses crt, studentsMenu, initStudents, testsMenu, listMenu, stadisticsMenu,
-usaArbol, arbolUnit
-;
+Uses crt, students_menu, init_stud_file, tests_menu, list_menu, stadistics_menu,
+usa_arbol, arbol_unit, init_test_file;
 
 Const 
   nOp = 5;
@@ -25,15 +24,17 @@ Var
   w: string;
   i, here: integer;
   key: Char;
-  rootLeg: T_PUNT;
-  rootName: T_PUNT;
+  rootLeg, rootName, rootTestLeg: T_PUNT;
 Begin
   here := 1;
   // incializo el archivo de alumnos
   initStudentFile();
+  // incializo el archivo de evaluaciones
+  initTestFile();
   // incializo los arboles
   initTree(rootLeg);
   initTreeApYNom(rootName);
+  initTreeTest(rootTestLeg);
   Repeat
     clrscr;
     textcolor(white);

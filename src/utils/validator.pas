@@ -7,7 +7,7 @@ Uses crt, sysutils;
 
 Function legValidator(leg: String): Boolean;
 Function birthdayValidator(birthday: String): Boolean;
-Procedure nameAndLastValidator(name, text: String);
+Procedure nameAndLastValidator(Var name: String; text: String);
 
 Implementation
 

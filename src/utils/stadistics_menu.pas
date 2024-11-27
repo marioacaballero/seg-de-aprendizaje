@@ -1,5 +1,5 @@
 
-Unit stadisticsMenu;
+Unit stadistics_menu;
 
 Interface
 

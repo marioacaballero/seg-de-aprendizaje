@@ -1,25 +1,10 @@
 
-Unit initStudents;
+Unit stud_display;
 
 Interface
 
-Const 
-  path = './assets/students.dat';
+Uses stud_entity;
 
-Type 
-  T_Discapacidad = array [1..5] Of boolean;
-  T_Alumno = Record
-    numLegajo: string[8];
-    nombre: string[20];
-    apellido: string[20];
-    fechaNacimiento: string[8];
-    estado: Boolean;
-    discapacidades: T_Discapacidad;
-  End;
-
-  T_File = File Of T_Alumno;
-
-Procedure initStudentFile();
 Function showBirthday(birthday: String): string;
 Function showStudent(leg, ap, nomb, fecha: String; d: T_Discapacidad): string;
 Function showStudentTitle(leg, ap, nomb, fecha, dif: String): string;
@@ -27,20 +12,6 @@ Function line(tam: byte): string;
 Function showDifficulties(): string;
 
 Implementation
-Procedure initStudentFile();
-
-Var 
-  f: T_File;
-Begin
-  Assign(f, path);
-  //Para chequear se puede utilizar las directivas al compilador:
- {$I-}
-  //orden al compilador que deshabilite el control de IO
-  Reset(f);
-{$I+}
-  //orden al compilador que habilite el control de IO
-  If IOResult<>0 Then Rewrite(f); {si no existe lo crea}
-End;
 
 Function showBirthday(birthday: String): string;
 Begin

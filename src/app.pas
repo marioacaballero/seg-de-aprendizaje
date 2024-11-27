@@ -1,8 +1,8 @@
 
 Program app;
-{$unitPath ./menu/}
+{$unitPath ./utils/}
 
-Uses mainMenu;
+Uses main_menu;
 Begin
   menuMain();
 End.

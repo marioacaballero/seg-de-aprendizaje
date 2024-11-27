@@ -3,11 +3,10 @@ Unit students_menu;
 
 Interface
 
-{$unitPath ../students/}
 {$unitPath ../utils/}
+{$unitPath ./}
 
-Uses 
-crt, initStudents, CRUDStudents, validator, arbolUnit, usaArbol;
+Uses crt, CRUD_stud, validator, arbol_unit, usa_arbol;
 
 Const 
   nOp1 = 2;
