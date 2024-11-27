@@ -7,19 +7,39 @@ Uses crt, sysutils;
 
 Function legValidator(leg: String): Boolean;
 Function birthdayValidator(birthday: String): Boolean;
-Procedure nameAndLastValidator(Var name: String; text: String);
+Function nameValidator(name: String): Boolean;
+Function lastNameValidator(name: String): Boolean;
 
 Implementation
 
 Function legValidator(leg: String): Boolean;
-// debe validar ademas que no tenga letras
+
+Var i: byte;
 Begin
-  legValidator := Length(leg) = 8;
+  If (Length(leg) <> 8) Then
+    legValidator := false
+  Else
+    Begin
+      i := 1;
+      legValidator := true;
+      While (legValidator) And (i < 9) Do
+        Begin
+          If (leg[i] In ['0'..'9']) Then
+            legValidator := true
+          Else
+            legValidator := false;
+          Inc(i);
+        End;
+    End;
 End;
 
-Function dayValidator(day: Byte): Boolean;
+Function dayValidator(day, month: Byte): Boolean;
 Begin
-  dayValidator := (day > 0) And (day < 32);
+  Case month Of 
+    2: dayValidator := (day > 0) And (day < 29);
+    1,3,5,7,8,10,12: dayValidator := (day > 0) And (day < 32);
+    4,6,9,11: dayValidator := (day > 0) And (day < 31);
+  End;
 End;
 
 Function monthValidator(month: byte): Boolean;
@@ -41,7 +61,7 @@ Begin
   day := StrToInt(Copy(birthday, 1, 2));
   month := StrToInt(Copy(birthday, 3, 2));
   year := StrToInt(Copy(birthday, 5, 4));
-  birthdayValidator := dayValidator(day) And monthValidator(month) And
+  birthdayValidator := dayValidator(day, month) And monthValidator(month) And
                        yearValidator(year);
 End;
 
@@ -50,20 +70,9 @@ Begin
   nameValidator := Length(name) > 2;
 End;
 
-Procedure nameAndLastValidator(Var name: String; text: String);
+Function lastNameValidator(name: String): Boolean;
 Begin
-  While (Not nameValidator(name)) Do
-    Begin
-      textcolor(red);
-      WriteLn('El ', text, ' debe contener al menos 3 digitos');
-      WriteLn;
-      textcolor(green);
-      If (text = 'nombre') Then
-        write('Nombres: ')
-      Else
-        Write('Apellidos: ');
-      readln(name);
-    End;
+  lastNameValidator := Length(name) > 2;
 End;
 
 End.
