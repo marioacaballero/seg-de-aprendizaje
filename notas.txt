@@ -12,3 +12,4 @@ Alumnos: correcciones y/o sugerencias del 28/11
 - En cualquier menu se debe poder salir con "esc"
 - Validacion de dificultades (debe contemplar el uso de numeros)
 - OPCIONAL: Agregar confirmaciones
+- Se puede agregar una validacion para S/N (sirve a futuro para confirmaciones)
