@@ -105,7 +105,6 @@ Begin
     clrscr;
     titleText();
     textcolor(green);
-    // readStudent(leg, rootLeg);
     WriteLn('No se encontro');
     writeln('');
     If (key <> char(27)) Then

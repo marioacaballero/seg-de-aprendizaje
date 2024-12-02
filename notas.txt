@@ -1,15 +1,15 @@
-- El archivo de evaluaciones se carga de manera cronologica (ya esta ordenado por fecha)
-- Se puede usar arbol, lista o busqueda secuencial para mostrar las evaluaciones de un alumno
+[-] El archivo de evaluaciones se carga de manera cronologica (ya esta ordenado por fecha)
+[-] Se puede usar arbol, lista o busqueda secuencial para mostrar las evaluaciones de un alumno
 
 Alumnos: correcciones y/o sugerencias del 28/11
-- Respecto al menu se debe mostrar la cantidad de caracteres a ingresar
-- A nivel de usabilidad se debe ingresar directamente el registro o "esc" para salir
-- Mensaje de error: Debe especificar unicamente que solo tenga los numeros sin letras
-- El cursor debe quedar en la ultima posicion luego de la validacion del registro
-- Las validaciones deben contemplar los strings vacios
-- Para la modificacion, agregar un menu que me permita elejir cual quiero modificar
-- Todos los subsmenus deben ser con movimiento de las flechas
-- En cualquier menu se debe poder salir con "esc"
-- Validacion de dificultades (debe contemplar el uso de numeros)
-- OPCIONAL: Agregar confirmaciones
-- Se puede agregar una validacion para S/N (sirve a futuro para confirmaciones)
+[-] Respecto al menu se debe mostrar la cantidad de caracteres a ingresar
+[-] A nivel de usabilidad se debe ingresar directamente el registro o "esc" para salir
+[-] Mensaje de error: Debe especificar unicamente que solo tenga los numeros sin letras
+[-] El cursor debe quedar en la ultima posicion luego de la validacion del registro
+[-] Las validaciones deben contemplar los strings vacios
+[-] Para la modificacion, agregar un menu que me permita elejir cual quiero modificar
+[-] Todos los subsmenus deben ser con movimiento de las flechas
+[-] En cualquier menu se debe poder salir con "esc"
+[-] Validacion de dificultades (debe contemplar el uso de numeros)
+[-] OPCIONAL: Agregar confirmaciones
+[-] Se puede agregar una validacion para S/N (sirve a futuro para confirmaciones)
