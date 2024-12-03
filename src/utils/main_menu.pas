@@ -100,6 +100,5 @@ Begin
           readkey;
         End;
   Until key = chr(5);
-
 End;
 End.

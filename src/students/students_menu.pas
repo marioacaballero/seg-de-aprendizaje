@@ -87,10 +87,9 @@ Begin
                 key := chr(27);
               End;
           End;
-          readkey;
         End;
   Until key = chr(27);
-
+  clrscr;
 End;
 
 Procedure notFindSubMenu(leg: String; Var rootLeg, rootName:
@@ -150,11 +149,10 @@ Begin
                     key := chr(27);
                   End;
               End;
-              readkey;
             End;
       End;
   Until key = chr(27);
-
+  clrscr;
 End;
 
 Procedure menuStudents(Var rootLeg, rootName: T_PUNT);
@@ -164,43 +162,52 @@ Var
   find: boolean;
   key: Char;
 Begin
+  leg := '';
   Repeat
-    clrscr;
-    Begin
-      titleText();
-      textcolor(lightgray);
-      WriteLn('Presione ENTER para ingresar el legajo o ESC para volver');
-      key := ReadKey;
-      If key <> chr(27) Then
+    titleText();
+    textcolor(lightgray);
+    WriteLn('Ingrese el legajo y presione ENTER');
+    WriteLn('Debe contener solamente 8 numeros');
+    WriteLn('');
+    WriteLn('Presione ESC para volver');
+    textcolor(green);
+    WriteLn('');
+    Write('Numero de legajo: ', leg);
+    key := readkey;
+    If (key <> chr(27)) Then
+      If (key = chr(8)) Then
         Begin
-          WriteLn('');
-          Write('Numero de legajo: ');
-          textcolor(green);
-          ReadLn(leg);
-          If (legValidator(leg)) Then
-            Begin
-              BUSCAR(rootLeg,leg, find);
-              If (find) Then
-                findSubMenu(leg, rootLeg)
-              Else
-                notFindSubMenu(leg, rootLeg, rootName);
-            End
-          Else
-            Begin
-              textcolor(red);
-              WriteLn;
-              WriteLn('Debe contener 8 numeros');
-              textcolor(green);
-              readkey;
-            End;
-        End;
-    End;
+          clrscr;
+          // Para quitarle uno al string uso la funcion Delete
+          Delete(leg, Length(leg), 1);
+        End
+    Else If (key = chr(13)) Then
+           Begin
+             If (legValidator(leg)) Then
+               Begin
+                 BUSCAR(rootLeg,leg, find);
+                 If (find) Then
+                   findSubMenu(leg, rootLeg)
+                 Else
+                   notFindSubMenu(leg, rootLeg, rootName);
+               End
+             Else
+               Begin
+                 textcolor(red);
+                 WriteLn;
+                 WriteLn;
+                 WriteLn('Debe contener solo 8 numeros');
+                 textcolor(green);
+                 readkey;
+                 clrscr;
+               End;
+           End
+    Else
+      Begin
+        clrscr;
+        leg := leg + key;
+      End;
   Until key = chr(27);
-  key := chr(0);
   clrscr();
-  textcolor(green);
-  WriteLn('Volviendo al Menu Principal!');
-  writeln('');
-  WriteLn('<------------------------------------------');
 End;
 End.
