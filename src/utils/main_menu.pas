@@ -95,9 +95,9 @@ Begin
                 WriteLn('Muchas gracias por utilizarnos. Nos vemos!');
                 writeln('');
                 WriteLn('<------------------------------------------');
+                readkey;
               End;
           End;
-          readkey;
         End;
   Until key = chr(5);
 End;

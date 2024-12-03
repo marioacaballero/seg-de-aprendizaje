@@ -49,7 +49,7 @@ End;
 
 Function yearValidator(year: word): Boolean;
 Begin
-  yearValidator := (year > 1970) And (year < 2006);
+  yearValidator := year < 2006;
 End;
 
 Function birthdayValidator(birthday: String): Boolean;
@@ -58,11 +58,16 @@ Var
   day, month: byte;
   year: word;
 Begin
-  day := StrToInt(Copy(birthday, 1, 2));
-  month := StrToInt(Copy(birthday, 3, 2));
-  year := StrToInt(Copy(birthday, 5, 4));
-  birthdayValidator := dayValidator(day, month) And monthValidator(month) And
-                       yearValidator(year);
+  If (Length(birthday) = 0) Then
+    birthdayValidator := false
+  Else
+    Begin
+      day := StrToInt(Copy(birthday, 1, 2));
+      month := StrToInt(Copy(birthday, 3, 2));
+      year := StrToInt(Copy(birthday, 5, 4));
+      birthdayValidator := dayValidator(day, month) And monthValidator(month)
+                           And yearValidator(year);
+    End;
 End;
 
 Function nameValidator(name: String): Boolean;
