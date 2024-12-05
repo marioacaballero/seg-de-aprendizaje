@@ -7,10 +7,10 @@ Alumnos: correcciones y/o sugerencias del 28/11
 [x] Mensaje de error: Debe especificar unicamente que solo tenga los numeros sin letras
 [x] El cursor debe quedar en la ultima posicion luego de la validacion del registro
 [x] Las validaciones deben contemplar los strings vacios
-[-] Para la modificacion, agregar un menu que me permita elejir cual quiero modificar
-[-] Todos los subsmenus deben ser con movimiento de las flechas
-[-] En cualquier menu se debe poder salir con "esc"
-[-] Validacion de dificultades (debe contemplar el uso de numeros)
+[x] Para la modificacion, agregar un menu que me permita elejir cual quiero modificar
+[x] Todos los subsmenus deben ser con movimiento de las flechas
+[x] En cualquier menu se debe poder salir con "esc"
+[x] Validacion de dificultades (debe contemplar el uso de numeros)
 [-] OPCIONAL: Agregar confirmaciones
 [-] Se puede agregar una validacion para S/N (sirve a futuro para confirmaciones)
-[-] Agregar cuadro de dificultades cuando se muestra 1 alumno
+[x] Agregar cuadro de dificultades cuando se muestra 1 alumno

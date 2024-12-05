@@ -75,16 +75,9 @@ Begin
             2: WriteLn('Evaluaciones  de un alumno ');
             3: WriteLn('Alumnos por dificultad');
             Else
-              Begin
-                key := chr(5);
-                textcolor(green);
-                WriteLn('Volviendo al Menu Principal!');
-                writeln('');
-                WriteLn('<------------------------------------------');
-              End;
+              key := chr(27);
           End;
-          readkey;
         End;
-  Until key = chr(5);
+  Until key = chr(27);
 End;
 End.

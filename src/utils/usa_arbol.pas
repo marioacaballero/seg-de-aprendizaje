@@ -11,10 +11,8 @@ Uses crt, arbol_unit, stud_entity, init_stud_file, stud_display, test_entity,
 init_test_file;
 
 Procedure CARGAR_ARBOL(Var root:T_PUNT; X: T_DATO_ARBOL);
-// Procedure CONSULTA (Var root:T_PUNT; leg: String; Var X: T_DATO_ARBOL);
 Procedure BUSCAR (root:T_PUNT; leg: String; Var find: Boolean);
 Procedure LISTAR (root:T_PUNT);
-// Procedure BAJA(Var RAIZ:T_PUNT);
 Procedure initTree(Var root: T_PUNT);
 Procedure initTreeApYNom(Var root: T_PUNT);
 Procedure initTreeTest(Var root: T_PUNT);
@@ -26,58 +24,6 @@ Begin
   If (Not ARBOL_LLENO(root)) Then
     AGREGAR (root,X);
 End;
-
-// Procedure CONSULTA (Var root:T_PUNT; leg: String; Var X: T_DATO_ARBOL);
-
-// Var 
-//   ENC: Boolean;
-//   student: T_Alumno;
-//   f: T_File_Alum;
-// Begin
-//   PREORDEN (root, leg, ENC, X);
-//   If Not ENC  Then WRITELN ('No encontrado')
-//   Else
-//     Begin
-//       Assign(f, path_alum);
-//       Reset(f);
-//       Seek(f, x.pos_arch);
-//       Read(f, student);
-//       line(96);
-//       showStudentTitle();
-//       line(96);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//       showStudent(student.numLegajo, student.apellido, student.nombre, student.
-//                   fechaNacimiento, student.estado,student.discapacidades);
-//       closeStudFile(f);
-//     End;
-// End;
 
 Procedure BUSCAR (root:T_PUNT; leg: String; Var find: Boolean);
 
@@ -100,6 +46,7 @@ Begin
       line(96);
     End
   Else WRITELN ('No hay registros');
+  readkey;
 End;
 
 Procedure initTree(Var root: T_PUNT);

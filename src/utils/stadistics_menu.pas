@@ -73,17 +73,10 @@ Begin
             2: WriteLn('Discapacidad con mayor grado de dificultad');
             3: WriteLn('Otro');
             Else
-              Begin
-                key := chr(5);
-                textcolor(green);
-                WriteLn('Volviendo al Menu Principal!');
-                writeln('');
-                WriteLn('<------------------------------------------');
-              End;
+              key := chr(27);
           End;
-          readkey;
         End;
-  Until key = chr(5);
+  Until key = chr(27);
 End;
 
 End.
