@@ -8,7 +8,7 @@ Uses crt, sysutils;
 Function legValidator(leg: String): Boolean;
 Function birthdayValidator(birthday: String): Boolean;
 Function nameValidator(name: String): Boolean;
-Function lastNameValidator(name: String): Boolean;
+Function lastNameValidator(lastname: String): Boolean;
 
 Implementation
 
@@ -55,29 +55,69 @@ End;
 Function birthdayValidator(birthday: String): Boolean;
 
 Var 
-  day, month: byte;
+  i, day, month: byte;
   year: word;
 Begin
-  If (Length(birthday) = 0) Then
+  i := 1;
+  birthdayValidator := true;
+  If (Length(birthday) = 0) Or (Length(birthday) > 8) Then
     birthdayValidator := false
   Else
     Begin
-      day := StrToInt(Copy(birthday, 1, 2));
-      month := StrToInt(Copy(birthday, 3, 2));
-      year := StrToInt(Copy(birthday, 5, 4));
-      birthdayValidator := dayValidator(day, month) And monthValidator(month)
-                           And yearValidator(year);
+      While (i < 9) And  birthdayValidator Do
+        Begin
+          If Not (birthday[i] In ['0'..'9']) Then
+            birthdayValidator := False;
+          Inc(i);
+        End;
+      If (birthdayValidator) Then
+        Begin
+          day := StrToInt(Copy(birthday, 1, 2));
+          month := StrToInt(Copy(birthday, 3, 2));
+          year := StrToInt(Copy(birthday, 5, 4));
+          birthdayValidator := dayValidator(day, month) And monthValidator(month
+                               )
+                               And yearValidator(year);
+        End;
     End;
 End;
 
 Function nameValidator(name: String): Boolean;
+
+Var i: byte;
 Begin
-  nameValidator := Length(name) > 2;
+  i := 1;
+  nameValidator := True;
+  If (Length(name) < 3) Then
+    nameValidator := false
+  Else
+    Begin
+      While (i <= Length(name)) And (nameValidator) Do
+        Begin
+          If (Not (name[i] In ['a'..'z'])) And (name[i] <> ' ') Then
+            nameValidator := false;
+          Inc(i);
+        End;
+    End;
 End;
 
-Function lastNameValidator(name: String): Boolean;
+Function lastNameValidator(lastname: String): Boolean;
+
+Var i: byte;
 Begin
-  lastNameValidator := Length(name) > 2;
+  i := 1;
+  lastNameValidator := True;
+  If (Length(lastname) < 3) Then
+    lastNameValidator := false
+  Else
+    Begin
+      While (i <= Length(lastname)) And (lastNameValidator) Do
+        Begin
+          If (Not (lastName[i] In ['a'..'z'])) And (lastName[i] <> ' ') Then
+            lastNameValidator := false;
+          Inc(i);
+        End;
+    End;
 End;
 
 End.

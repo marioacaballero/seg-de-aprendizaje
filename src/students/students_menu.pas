@@ -6,7 +6,7 @@ Interface
 {$unitPath ../utils/}
 {$unitPath ./}
 
-Uses crt, CRUD_stud, validator, arbol_unit, usa_arbol;
+Uses crt, CRUD_stud, validator, arbol_unit, usa_arbol, stud_display;
 
 Const 
   nOp1 = 2;
@@ -19,17 +19,6 @@ Procedure menuStudents(Var rootLeg, rootName: T_PUNT);
 
 Implementation
 
-Function titleText(): string;
-Begin
-  textcolor(white);
-  WriteLn('--------------------------------');
-  WriteLn('|                              |');
-  WriteLn('|           ALUMNOS            |');
-  WriteLn('|                              |');
-  WriteLn('--------------------------------');
-  writeln('');
-End;
-
 Procedure findSubMenu(leg:String; Var rootLeg:T_PUNT);
 
 Var 
@@ -41,7 +30,6 @@ Begin
     clrscr;
     titleText();
     textcolor(green);
-    writeln(leg);
     readStudent(leg, rootLeg);
     writeln('');
     writeln('');
@@ -83,9 +71,7 @@ Begin
             1: updateStudent(rootLeg, leg);
             2: deleteStudent(rootLeg, leg);
             Else
-              Begin
-                key := chr(27);
-              End;
+              key := chr(27);
           End;
         End;
   Until key = chr(27);
@@ -145,9 +131,7 @@ Begin
               Case here Of 
                 1: createStudent(leg, key, rootLeg, rootName);
                 Else
-                  Begin
-                    key := chr(27);
-                  End;
+                  key := chr(27);
               End;
             End;
       End;

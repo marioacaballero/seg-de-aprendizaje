@@ -13,3 +13,4 @@ Alumnos: correcciones y/o sugerencias del 28/11
 [-] Validacion de dificultades (debe contemplar el uso de numeros)
 [-] OPCIONAL: Agregar confirmaciones
 [-] Se puede agregar una validacion para S/N (sirve a futuro para confirmaciones)
+[-] Agregar cuadro de dificultades cuando se muestra 1 alumno
