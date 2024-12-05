@@ -5,6 +5,13 @@ Interface
 
 Uses crt, stud_entity;
 
+Const 
+  dif1 = 'Problemas del habla y lenguaje';
+  dif2 = 'Dificultad para escribir';
+  dif3 = 'Dificultades de aprendizaje visual';
+  dif4 = 'Memoria y otras dificultades del pensamiento';
+  dif5 = 'Destrezas sociales inadecuadas';
+
 Function showBirthday(birthday: String): string;
 Function showStudent(leg, ap, nomb, fecha: String; stat:boolean; d:
                      T_Discapacidad): string;
@@ -137,11 +144,11 @@ Function difficulties(): string;
 Begin
   WriteLn('| Dificultades:                                    |');
   WriteLn('|                                                  |');
-  WriteLn('| 1. Problemas del habla y lenguaje                |');
-  WriteLn('| 2. Dificultad para escribir                      |');
-  WriteLn('| 3. Dificultades de aprendizaje visual            |');
-  WriteLn('| 4. Memoria y otras dificultades del pensamiento  |');
-  WriteLn('| 5. Destrezas sociales inadecuadas                |');
+  WriteLn('| 1. ',dif1,'                |');
+  WriteLn('| 2. ',dif2,'                      |');
+  WriteLn('| 3. ',dif3,'            |');
+  WriteLn('| 4. ',dif4,'  |');
+  WriteLn('| 5. ',dif5,'                |');
   WriteLn('|                                                  |');
   WriteLn('| En la columna estan representadas en orden       |');
   WriteLn('| [ 1 2 3 4 5 ]                                    |');
@@ -156,22 +163,5 @@ Begin
   line(52);
   WriteLn;
 End;
-
-// Procedure showUpdateMenu(Var resp: byte; alta: Boolean);
-// Begin
-//   WriteLn;
-//   Textcolor(white);
-//   WriteLn('Que desea modificar, elija 0 para salir: ');
-//   WriteLn;
-//   Textcolor(green);
-//   writeln('1: Datos personales');
-//   writeln('2: Dificultades');
-//   If (Not alta) Then writeln('3: Dar de alta');
-//   Textcolor(white);
-//   WriteLn;
-//   write('Opcion: ');
-//   ReadLn(resp);
-//   WriteLn;
-// End;
 
 End.

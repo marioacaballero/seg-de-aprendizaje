@@ -10,7 +10,7 @@ Uses crt, stud_entity, validator;
 
 Procedure initDiscapacidades(Var student: T_Alumno);
 Procedure checkData(Var data: String; text: String);
-Procedure chargeDif(Var student: T_Alumno);
+Procedure chargeDif(Var student: T_Alumno; here: Integer);
 Procedure chargeStudent(Var student: T_Alumno; leg: String);
 Procedure changeState(Var student: T_Alumno);
 Procedure changeLastName(Var student: T_Alumno);
@@ -70,29 +70,9 @@ Begin
   End;
 End;
 
-Procedure chargeDif(Var student: T_Alumno);
-
-Var 
-  dif: array[1..5] Of string = ('Problemas del habla y lenguaje',
-                                'Dificultad para escribir',
-                                'Dificultades de aprendizaje visual',
-                                'Memoria y otras dificultades del pensamiento',
-                                'Destrezas sociales inadecuadas');
-  i: byte;
-  resp: string;
+Procedure chargeDif(Var student: T_Alumno; here: Integer);
 Begin
-  textcolor(white);
-  WriteLn;
-  WriteLn('Dificultades:');
-  WriteLn;
-  textcolor(green);
-  For i:= 1 To 5 Do
-    Begin
-      write(dif[i], ' S/N: ');
-      ReadLn(resp);
-      If (LowerCase(resp) = 's') Then
-        student.discapacidades[i] := true;
-    End;
+  student.discapacidades[here] := Not student.discapacidades[here];
 End;
 
 Procedure chargeStudent(Var student: T_Alumno; leg: String);

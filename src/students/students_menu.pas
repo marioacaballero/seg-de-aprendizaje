@@ -30,6 +30,7 @@ Begin
     clrscr;
     titleText();
     textcolor(green);
+    showDifficulties();
     readStudent(leg, rootLeg);
     writeln('');
     writeln('');

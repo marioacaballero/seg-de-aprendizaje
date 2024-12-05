@@ -65,6 +65,14 @@ End;
 
 
 
+
+
+
+
+
+
+
+
 //       showStudent(student.numLegajo, student.apellido, student.nombre, student.
 //                   fechaNacimiento, student.estado,student.discapacidades);
 //       closeStudFile(f);
