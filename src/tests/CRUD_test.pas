@@ -30,7 +30,7 @@ Begin
   writeln('Evaluacion cargada correctamente');
 End;
 
-Procedure readTest(Var test: T_Test);
+Procedure readTest(leg, );
 Begin
 
 End;
