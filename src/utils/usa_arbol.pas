@@ -7,8 +7,8 @@ Interface
 {$unitPath ../tests/}
 {$unitPath ./}
 
-Uses crt, arbol_unit, stud_entity, init_stud_file, stud_display, test_entity,
-init_test_file;
+Uses crt, arbol_unit, stud_entity, init_stud_file, stud_display,
+general_displays, test_entity, init_test_file;
 
 Procedure CARGAR_ARBOL(Var root:T_PUNT; X: T_DATO_ARBOL);
 Procedure BUSCAR (root:T_PUNT; leg: String; Var find: Boolean);

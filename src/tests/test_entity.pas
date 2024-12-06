@@ -11,7 +11,7 @@ Type
   T_Test = Record
     numLegajo: string[8];
     fechaEval: string[8];
-    observacion: string[100];
+    observacion: string[60];
     estado: Boolean;
     seguimiento: T_Seguimiento;
   End;

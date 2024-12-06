@@ -9,6 +9,9 @@ Function legValidator(leg: String): Boolean;
 Function birthdayValidator(birthday: String): Boolean;
 Function nameValidator(name: String): Boolean;
 Function lastNameValidator(lastname: String): Boolean;
+Function commentsValidator(comment: String): Boolean;
+Function pointsValidator(point: String): Boolean;
+Function dateValidator(date: String): Boolean;
 
 Implementation
 
@@ -52,6 +55,11 @@ Begin
   yearValidator := year < 2006;
 End;
 
+Function yearTestValidator(year: word): Boolean;
+Begin
+  yearTestValidator := year < 2025;
+End;
+
 Function birthdayValidator(birthday: String): Boolean;
 
 Var 
@@ -78,6 +86,35 @@ Begin
           birthdayValidator := dayValidator(day, month) And monthValidator(month
                                )
                                And yearValidator(year);
+        End;
+    End;
+End;
+
+Function dateValidator(date: String): Boolean;
+
+Var 
+  i, day, month: byte;
+  year: word;
+Begin
+  i := 1;
+  dateValidator := true;
+  If (Length(date) = 0) Or (Length(date) > 8) Then
+    dateValidator := false
+  Else
+    Begin
+      While (i < 9) And  dateValidator Do
+        Begin
+          If Not (date[i] In ['0'..'9']) Then
+            dateValidator := False;
+          Inc(i);
+        End;
+      If (dateValidator) Then
+        Begin
+          day := StrToInt(Copy(date, 1, 2));
+          month := StrToInt(Copy(date, 3, 2));
+          year := StrToInt(Copy(date, 5, 4));
+          dateValidator := dayValidator(day, month) And monthValidator(month)
+                           And yearTestValidator(year);
         End;
     End;
 End;
@@ -118,6 +155,19 @@ Begin
           Inc(i);
         End;
     End;
+End;
+
+Function commentsValidator(comment: String): Boolean;
+Begin
+  commentsValidator := Length(comment) < 61;
+End;
+
+Function pointsValidator(point: String): Boolean;
+Begin
+  If (Length(point) <> 1) Then
+    pointsValidator := False
+  Else
+    pointsValidator := point[1] In ['0'..'4'];
 End;
 
 End.

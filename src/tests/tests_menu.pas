@@ -3,16 +3,22 @@ Unit tests_menu;
 
 Interface
 
-Uses crt;
+{$unitPath ../utils/}
+{$unitPath ./}
+
+Uses crt, test_display, test_submenus, arbol_unit, usa_arbol;
 
 Const 
   nOp = 4;
-  opciones: array[1..nOp] Of string = ('Alta', 'Modificacion', 'Consulta',
+  opciones: array[1..nOp] Of string = ('Cargar evaluacion', 'Modificacion',
+                                       'Consulta',
                                        'Salir');
-Procedure menuTest();
+
+Procedure menuTest(Var rootLeg: T_PUNT);
 
 Implementation
-Procedure menuTest();
+
+Procedure menuTest(Var rootLeg: T_PUNT);
 
 Var 
   w: string;
@@ -22,13 +28,7 @@ Begin
   here := 1;
   Repeat
     clrscr;
-    textcolor(white);
-    WriteLn('--------------------------------');
-    WriteLn('|                              |');
-    WriteLn('|         SEGUIMIENTO          |');
-    WriteLn('|                              |');
-    WriteLn('--------------------------------');
-    writeln('');
+    titleTestText();
     textcolor(lightgray);
     WriteLn('Elija una opcion:');
     writeln('');
@@ -68,7 +68,7 @@ Begin
         Begin
           clrscr;
           Case here Of 
-            1: WriteLn('Alta');
+            1: createSubMenu(rootLeg);
             2: WriteLn('Modificacion');
             3: WriteLn('Consulta');
             Else

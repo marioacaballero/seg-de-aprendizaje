@@ -5,7 +5,7 @@ Interface
 
 {$unitPath ./}
 
-Uses crt, stud_entity, stud_display, students_utils;
+Uses crt, stud_entity, stud_display, students_utils, general_displays;
 
 Const 
   nOp1 = 4;

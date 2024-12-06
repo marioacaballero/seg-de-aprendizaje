@@ -4,8 +4,9 @@ Unit list_menu;
 Interface
 
 {$unitPath ../utils/}
+{$unitPath ../tests/}
 
-Uses crt, usa_arbol, arbol_unit;
+Uses crt, usa_arbol, arbol_unit, CRUD_test;
 
 Const 
   nOp = 4;
@@ -72,7 +73,7 @@ Begin
           clrscr;
           Case here Of 
             1: LISTAR(root);
-            2: WriteLn('Evaluaciones  de un alumno ');
+            2: allTest();
             3: WriteLn('Alumnos por dificultad');
             Else
               key := chr(27);

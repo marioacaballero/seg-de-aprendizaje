@@ -7,7 +7,7 @@ Interface
 {$unitPath ./}
 
 Uses crt, stud_entity, init_stud_file, usa_arbol, arbol_unit,
-stud_display, students_submenus, students_utils;
+stud_display, general_displays, students_submenus, students_utils;
 
 Procedure createStudent(leg: String; Var key: Char; Var rootLeg, rootName:
                         T_PUNT);

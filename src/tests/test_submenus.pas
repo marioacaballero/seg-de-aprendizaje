@@ -1,26 +1,26 @@
 
-Unit students_menu;
+Unit test_submenus;
 
 Interface
 
 {$unitPath ../utils/}
+{$unitPath ./students/}
 {$unitPath ./}
 
-Uses crt, CRUD_stud, validator, arbol_unit, usa_arbol, stud_display,
-general_displays;
+Uses crt, validator, usa_arbol, arbol_unit, CRUD_stud, general_displays,
+CRUD_test, test_display;
 
 Const 
-  nOp1 = 2;
-  nOp2 = 3;
-  opciones1: array[1..nOp1] Of string = ('Dar de alta', 'Ingresar Otro');
-  opciones2: array[1..nOp2] Of string = ('Modificar', 'Dar de baja',
-                                         'Ingresar Otro');
+  nOp1 = 1;
+  nOp2 = 2;
+  opciones1: array[1..nOp1] Of string = ('Ingresar Otro');
+  opciones2: array[1..nOp2] Of string = ('Cargar Datos', 'Ingresar Otro');
 
-Procedure menuStudents(Var rootLeg, rootName: T_PUNT);
+Procedure createSubMenu(Var rootLeg: T_PUNT);
 
 Implementation
 
-Procedure findSubMenu(leg:String; Var rootLeg:T_PUNT);
+Procedure findMenu(leg:String; Var rootLeg:T_PUNT);
 
 Var 
   i, here: integer;
@@ -29,7 +29,7 @@ Begin
   here := 1;
   Repeat
     clrscr;
-    titleText();
+    titleTestText();
     textcolor(green);
     showDifficulties();
     readStudent(leg, rootLeg);
@@ -68,10 +68,8 @@ Begin
     Else
       If (key = chr(13)) Then
         Begin
-          clrscr;
           Case here Of 
-            1: updateStudent(rootLeg, leg);
-            2: deleteStudent(rootLeg, leg);
+            1: createTest(leg);
             Else
               key := chr(27);
           End;
@@ -80,8 +78,7 @@ Begin
   clrscr;
 End;
 
-Procedure notFindSubMenu(leg: String; Var rootLeg, rootName:
-                         T_PUNT);
+Procedure notFindMenu();
 
 Var 
   i, here: integer;
@@ -90,7 +87,7 @@ Begin
   here := 1;
   Repeat
     clrscr;
-    titleText();
+    titleTestText();
     textcolor(green);
     WriteLn('No se encontro');
     writeln('');
@@ -130,18 +127,14 @@ Begin
           If (key = chr(13)) Then
             Begin
               clrscr;
-              Case here Of 
-                1: createStudent(leg, key, rootLeg, rootName);
-                Else
-                  key := chr(27);
-              End;
+              key := chr(27);
             End;
       End;
   Until key = chr(27);
   clrscr;
 End;
 
-Procedure menuStudents(Var rootLeg, rootName: T_PUNT);
+Procedure createSubMenu(Var rootLeg: T_PUNT);
 
 Var 
   w, leg: string;
@@ -150,7 +143,8 @@ Var
 Begin
   leg := '';
   Repeat
-    titleText();
+    clrscr;
+    titleTestText();
     textcolor(lightgray);
     WriteLn('Ingrese el legajo y presione ENTER');
     WriteLn('Debe contener solamente 8 numeros');
@@ -173,9 +167,9 @@ Begin
                Begin
                  BUSCAR(rootLeg,leg, find);
                  If (find) Then
-                   findSubMenu(leg, rootLeg)
+                   findMenu(leg, rootLeg)
                  Else
-                   notFindSubMenu(leg, rootLeg, rootName);
+                   notFindMenu();
                End
              Else
                Begin
@@ -196,4 +190,5 @@ Begin
   Until key = chr(27);
   clrscr();
 End;
+
 End.
