@@ -14,8 +14,11 @@ Const
   difArray: array[1..5] Of string = (dif1,dif2,dif3,dif4,dif5);
 
 Procedure chargeTest(Var test: T_Test; leg: String; pos: word);
-Procedure findSeg(leg, date: String; Var pos: cardinal);
+Procedure findSeg(leg, date: String; Var pos: integer);
 Procedure validateDate(Var data: String);
+Procedure testMemo (Var test: T_Test; pos: integer);
+Procedure chargeOneDif(dif: Integer; Var test: T_Test; pos: integer);
+Procedure chargeObs(Var test: T_Test; pos: integer);
 
 Implementation
 
@@ -45,12 +48,36 @@ Begin
     End;
 End;
 
+Procedure findSeg(leg, date: String; Var pos: integer);
+
+Var 
+  f: T_File_Test;
+  test: T_Test;
+Begin
+  pos := -1;
+  Assign(f, path_test);
+  Reset(f);
+  If (FileSize(f) > 0) Then
+    Begin
+      seek(f, 0);
+      While (Not Eof(f)) And (pos = -1) Do
+        Begin
+          read(f, test);
+          If ((test.numLegajo = leg) And (test.fechaEval = date)) Then
+            pos := FilePos(f) - 1;
+        End;
+    End;
+  closeTestFile(f);
+End;
+
 Procedure checkDate(Var data: String; leg: String);
 
-Var pos: Cardinal;
+Var pos: integer;
 Begin
   validateDate(data);
   findSeg(leg, data, pos);
+  writeln('pos: ', pos);
+  // borrar
   While (pos >= 0) Do
     Begin
       textcolor(red);
@@ -137,22 +164,56 @@ Begin
   textcolor(white);
 End;
 
-Procedure findSeg(leg, date: String; Var pos: cardinal);
+Procedure testMemo (Var test: T_Test; pos: integer);
 
 Var 
   f: T_File_Test;
-  test: T_Test;
 Begin
-  pos := -1;
   Assign(f, path_test);
   Reset(f);
-  While (Not Eof(f)) And (pos = -1) Do
-    Begin
-      read(f, test);
-      If (test.numLegajo = leg) And (test.fechaEval = date) Then
-        pos := FilePos(f) - 1;
-    End;
+  Seek(f, pos);
+  Read(f, test);
   closeTestFile(f);
+End;
+
+Procedure saveTest (test: T_Test; pos: integer);
+
+Var 
+  f: T_File_Test;
+Begin
+  Assign(f, path_test);
+  Reset(f);
+  Seek(f, pos);
+  Write(f, test);
+  closeTestFile(f);
+End;
+
+Procedure chargeOneDif(dif: Integer; Var test: T_Test; pos: integer);
+
+Var 
+  point: string;
+Begin
+  testMemo(test, pos);
+  WriteLn;
+  Write('Ingrese nuevo valor: ');
+  ReadLn(point);
+  checkPoints(point, 'Ingrese nuevo valor: ');
+  test.seguimiento[dif] := StrToInt(point);
+  saveTest(test, pos);
+End;
+
+Procedure chargeObs(Var test: T_Test; pos: integer);
+
+Var 
+  obs: string;
+Begin
+  testMemo(test, pos);
+  WriteLn;
+  Write('Observacion: ');
+  ReadLn(obs);
+  checkObs(obs);
+  test.observacion := obs;
+  saveTest(test, pos);
 End;
 
 End.

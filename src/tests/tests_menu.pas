@@ -69,7 +69,7 @@ Begin
           clrscr;
           Case here Of 
             1: createSubMenu(rootLeg);
-            2: WriteLn('Modificacion');
+            2: updateSubMenu(rootLeg);
             3: readSubMenu(rootLeg);
             Else
               key := chr(27);

@@ -31,7 +31,10 @@ Var i: byte;
 Begin
   Write('[');
   For i:= 1 To 5 Do
-    write(' ', seg[i]);
+    If (seg[i] >= 0) Then
+      write(' ', seg[i])
+    Else
+      write(' ', '-');
   Write(' ]');
 End;
 
