@@ -1,7 +1,9 @@
 [-] El archivo de evaluaciones se carga de manera cronologica (ya esta ordenado por fecha)
 [-] Se puede usar arbol, lista o busqueda secuencial para mostrar las evaluaciones de un alumno
+[] A menor valor menor dificultad
 
-Alumnos: correcciones y/o sugerencias del 28/11
+Correcciones y/o sugerencias del 28/11/2024
+Alumnos: 
 [x] Respecto al menu se debe mostrar la cantidad de caracteres a ingresar
 [x] A nivel de usabilidad se debe ingresar directamente el registro o "esc" para salir
 [x] Mensaje de error: Debe especificar unicamente que solo tenga los numeros sin letras
@@ -14,3 +16,20 @@ Alumnos: correcciones y/o sugerencias del 28/11
 [-] OPCIONAL: Agregar confirmaciones
 [-] Se puede agregar una validacion para S/N (sirve a futuro para confirmaciones)
 [x] Agregar cuadro de dificultades cuando se muestra 1 alumno
+
+Correciones y/o sugerencias del 12/12/2024
+Alumnos:
+[] En el modificar, mostrar formato de fecha (DDMMAAAA)
+[] Poder cancelar en el dado de alta o modificar (los datos personales)
+[] Corregir el arbol de apynom al momento de editar nombre y apellido (eliminar el nodo y volver a insertarlo)
+
+Evaluaciones:
+[] Cambiar nombres de los menus para que sea mas intuitivo
+[] Agregar el getDate en pascal para obtener la fecha actual
+[] Si una dificultad tiene valoracion 0 se deberia cambiar a N ya que no le cuesta (justificar)
+[] En el listado de evaluaciones agregar la informacion del alumno y informacion de la dificultad. Opcional quitar el legajo de la lista de evaluaciones.
+
+Listado:
+Poder elejir la dificultad y mostrar todos los que la tienen
+
+
