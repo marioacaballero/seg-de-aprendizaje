@@ -25,6 +25,8 @@ Procedure findMenu(leg:String; Var rootLeg:T_PUNT);
 Var 
   i, here: integer;
   key: Char;
+  x: T_DATO_ARBOL;
+  enc: Boolean;
 Begin
   here := 1;
   Repeat
@@ -33,6 +35,7 @@ Begin
     textcolor(green);
     showDifficulties();
     readStudent(leg, rootLeg);
+    PREORDEN(rootLeg, leg, enc, x);
     writeln('');
     writeln('');
     For i:= 1 To nOp2 Do
@@ -69,7 +72,7 @@ Begin
       If (key = chr(13)) Then
         Begin
           Case here Of 
-            1: createTest(leg);
+            1: createTest(leg, x.pos_arch);
             Else
               key := chr(27);
           End;

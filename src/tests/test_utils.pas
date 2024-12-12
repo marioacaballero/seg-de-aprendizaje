@@ -3,15 +3,17 @@ Unit test_utils;
 
 Interface
 
+{$unitPath ../students/}
 {$unitPath ../utils/}
 {$unitPath ./}
 
-Uses crt, sysutils, test_entity, general_displays, validator;
+Uses crt, sysutils, test_entity, init_test_file, stud_entity, init_stud_file,
+general_displays, validator;
 
 Const 
   difArray: array[1..5] Of string = (dif1,dif2,dif3,dif4,dif5);
 
-Procedure chargeTest(Var test: T_Test; leg: String);
+Procedure chargeTest(Var test: T_Test; leg: String; pos: word);
 Procedure findSeg(leg, date: String; Var pos: cardinal);
 
 Implementation
@@ -68,12 +70,14 @@ Begin
     End;
 End;
 
-Procedure chargeDifPoints(Var dif: T_Seguimiento);
+Procedure chargeDifPoints(Var dif: T_Seguimiento; leg: String; pos: word);
 
 Var 
   i: integer;
   points: string;
   text: string;
+  f: T_File_Alum;
+  stud: T_Alumno;
 Begin
   textcolor(white);
   WriteLn;
@@ -82,18 +86,28 @@ Begin
   writeln('Siendo 0 si.. y 4 si..');
   textcolor(green);
   WriteLn;
+  Assign(f, path_alum);
+  Reset(f);
+  Seek(f, pos);
+  read(f, stud);
   For i:= 1 To 5 Do
     Begin
-      text := IntToStr(i) + '. ' + difArray[i] + ': ';
-      Write(text);
-      ReadLn(points);
-      checkPoints(points, text);
-      dif[i] := StrToInt(points);
+      If (stud.discapacidades[i]) Then
+        Begin
+          text := IntToStr(i) + '. ' + difArray[i] + ': ';
+          Write(text);
+          ReadLn(points);
+          checkPoints(points, text);
+          dif[i] := StrToInt(points);
+        End
+      Else
+        dif[i] := -1;
     End;
   WriteLn;
+  closeStudFile(f);
 End;
 
-Procedure chargeTest(Var test: T_Test; leg: String);
+Procedure chargeTest(Var test: T_Test; leg: String; pos: word);
 
 Var 
   fechaEval, obs: string;
@@ -109,7 +123,7 @@ Begin
   readln(fechaEval);
   checkDate(fechaEval, leg);
   test.fechaEval := fechaEval;
-  chargeDifPoints(test.seguimiento);
+  chargeDifPoints(test.seguimiento, leg, pos);
   write('Observaciones (60 caracteres): ');
   readln(obs);
   checkObs(obs);
@@ -126,12 +140,13 @@ Begin
   pos := -1;
   Assign(f, path_test);
   Reset(f);
-  While (Not Eof(f)) And (Not findSeg) Do
+  While (Not Eof(f)) And (pos = -1) Do
     Begin
       read(f, test);
       If (test.numLegajo = leg) And (test.fechaEval = date) Then
         pos := FilePos(f) - 1;
     End;
+  closeTestFile(f);
 End;
 
 End.

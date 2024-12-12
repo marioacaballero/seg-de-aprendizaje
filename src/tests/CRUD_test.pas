@@ -9,12 +9,13 @@ Interface
 Uses crt, test_entity, test_utils, init_test_file, test_display,
 general_displays;
 
-Procedure createTest(leg: String);
+Procedure createTest(leg: String; pos: word);
 Procedure allTest();
+Procedure readTest(leg, date: String);
 
 Implementation
 
-Procedure createTest(leg: String);
+Procedure createTest(leg: String; pos: word);
 
 Var 
   test: T_Test;
@@ -22,7 +23,7 @@ Var
 Begin
   Assign(f, path_test);
   Reset(f);
-  chargeTest(test, leg);
+  chargeTest(test, leg, pos);
   Seek(f, FileSize(f));
   Write(f, test);
   closeTestFile(f);
@@ -30,9 +31,26 @@ Begin
   writeln('Evaluacion cargada correctamente');
 End;
 
-Procedure readTest(leg, );
-Begin
+Procedure readTest(leg, date: String);
 
+Var 
+  pos: Cardinal;
+  test: T_Test;
+  f: T_File_Test;
+Begin
+  findSeg(leg, date, pos);
+  If (pos = -1) Then
+    WriteLn('No se encontró evaluación para la fecha')
+  Else
+    Begin
+      Assign(f, path_test);
+      Reset(f);
+      Seek(f, pos);
+      Read(f, test);
+      showTest(test.numLegajo, test.fechaEval, test.seguimiento, test.
+               observacion);
+      closeTestFile(f);
+    End;
 End;
 
 Procedure updateTest(Var test: T_Test);
