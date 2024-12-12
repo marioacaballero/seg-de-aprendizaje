@@ -11,7 +11,7 @@ general_displays;
 
 Procedure createTest(leg: String; pos: word);
 Procedure allTest();
-Procedure readTest(leg, date: String);
+Procedure readTest(leg: String);
 
 Implementation
 
@@ -31,13 +31,17 @@ Begin
   writeln('Evaluacion cargada correctamente');
 End;
 
-Procedure readTest(leg, date: String);
+Procedure readTest(leg: String);
 
 Var 
   pos: Cardinal;
   test: T_Test;
   f: T_File_Test;
+  date: string;
 Begin
+  write('Fecha de evaluación (DDMMAAAA): ');
+  readln(date);
+  validateDate(date);
   findSeg(leg, date, pos);
   If (pos = -1) Then
     WriteLn('No se encontró evaluación para la fecha')

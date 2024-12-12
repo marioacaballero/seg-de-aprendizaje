@@ -17,6 +17,7 @@ Const
   opciones2: array[1..nOp2] Of string = ('Cargar Datos', 'Ingresar Otro');
 
 Procedure createSubMenu(Var rootLeg: T_PUNT);
+Procedure readSubMenu(Var rootLeg: T_PUNT);
 
 Implementation
 
@@ -193,5 +194,64 @@ Begin
   Until key = chr(27);
   clrscr();
 End;
+
+Procedure readSubMenu(Var rootLeg: T_PUNT);
+
+Var 
+  w, leg: string;
+  find: boolean;
+  key: Char;
+Begin
+  leg := '';
+  Repeat
+    clrscr;
+    titleTestText();
+    textcolor(lightgray);
+    WriteLn('Ingrese el legajo y presione ENTER');
+    WriteLn('Debe contener solamente 8 numeros');
+    WriteLn('');
+    WriteLn('Presione ESC para volver');
+    textcolor(green);
+    WriteLn('');
+    Write('Numero de legajo: ', leg);
+    key := readkey;
+    If (key <> chr(27)) Then
+      If (key = chr(8)) Then
+        Begin
+          clrscr;
+          // Para quitarle uno al string uso la funcion Delete
+          Delete(leg, Length(leg), 1);
+        End
+    Else If (key = chr(13)) Then
+           Begin
+             If (legValidator(leg)) Then
+               Begin
+                 BUSCAR(rootLeg,leg, find);
+                 If (find) Then
+                   readTest(leg)
+                 Else
+                   notFindMenu();
+               End
+             Else
+               Begin
+                 textcolor(red);
+                 WriteLn;
+                 WriteLn;
+                 WriteLn('Debe contener solo 8 numeros');
+                 textcolor(green);
+                 readkey;
+                 clrscr;
+               End;
+           End
+    Else
+      Begin
+        clrscr;
+        leg := leg + key;
+      End;
+  Until key = chr(27);
+  clrscr();
+End;
+
+
 
 End.

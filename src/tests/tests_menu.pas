@@ -70,7 +70,7 @@ Begin
           Case here Of 
             1: createSubMenu(rootLeg);
             2: WriteLn('Modificacion');
-            3: WriteLn('Consulta');
+            3: readSubMenu(rootLeg);
             Else
               key := chr(27);
           End;

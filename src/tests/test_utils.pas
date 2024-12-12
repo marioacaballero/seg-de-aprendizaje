@@ -15,6 +15,7 @@ Const
 
 Procedure chargeTest(Var test: T_Test; leg: String; pos: word);
 Procedure findSeg(leg, date: String; Var pos: cardinal);
+Procedure validateDate(Var data: String);
 
 Implementation
 
@@ -31,9 +32,7 @@ Begin
     End;
 End;
 
-Procedure checkDate(Var data: String; leg: String);
-
-Var pos: Cardinal;
+Procedure validateDate(Var data: String);
 Begin
   While (Not dateValidator(data)) Do
     Begin
@@ -44,6 +43,13 @@ Begin
       write('Fecha de evaluación (DDMMAAAA): ');
       readln(data);
     End;
+End;
+
+Procedure checkDate(Var data: String; leg: String);
+
+Var pos: Cardinal;
+Begin
+  validateDate(data);
   findSeg(leg, data, pos);
   While (pos >= 0) Do
     Begin
