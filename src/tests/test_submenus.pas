@@ -14,8 +14,9 @@ Const
   nOp1 = 1;
   nOp2 = 2;
   nOp3 = 7;
-  opciones1: array[1..nOp1] Of string = ('Ingresar Otro');
-  opciones2: array[1..nOp2] Of string = ('Cargar Datos', 'Ingresar Otro');
+  opciones1: array[1..nOp1] Of string = ('Ingresar Otro Legajo');
+  opciones2: array[1..nOp2] Of string = ('Cargar datos de evaluacion',
+                                         'Ingresar Otro Legajo');
   opciones3: array[1..nOp3] Of string = (dif1,dif2,dif3,dif4,dif5,'Observacion',
                                          'Volver');
 

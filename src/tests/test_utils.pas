@@ -76,8 +76,6 @@ Var pos: integer;
 Begin
   validateDate(data);
   findSeg(leg, data, pos);
-  writeln('pos: ', pos);
-  // borrar
   While (pos >= 0) Do
     Begin
       textcolor(red);
@@ -115,8 +113,8 @@ Begin
   textcolor(white);
   WriteLn;
   writeln('Valoracion de dificultades, complete con numero de 0 a 4');
-  //consultar los valores
-  writeln('Siendo 0 si.. y 4 si..');
+  WriteLn;
+  writeln('Siendo 0 la menor (ya no la posee) y 4 mucha dificultad');
   textcolor(green);
   WriteLn;
   Assign(f, path_alum);
@@ -138,6 +136,9 @@ Begin
     End;
   WriteLn;
   closeStudFile(f);
+  textcolor(white);
+  writeln('Datos cargados correctamente, enter para continuar');
+  readkey;
 End;
 
 Procedure chargeTest(Var test: T_Test; leg: String; pos: word);

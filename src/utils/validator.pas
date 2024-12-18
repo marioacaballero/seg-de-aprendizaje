@@ -11,7 +11,7 @@ Function nameValidator(name: String): Boolean;
 Function lastNameValidator(lastname: String): Boolean;
 Function commentsValidator(comment: String): Boolean;
 Function pointsValidator(point: String): Boolean;
-Function dateValidator(date: String): Boolean;
+Function dateValidator(newDate: String): Boolean;
 
 Implementation
 
@@ -45,9 +45,19 @@ Begin
   End;
 End;
 
+Function dayTestValidator(day, actualDate: Byte): Boolean;
+Begin
+  dayTestValidator := day <= actualDate;
+End;
+
 Function monthValidator(month: byte): Boolean;
 Begin
   monthValidator := (month > 0) And (month < 13);
+End;
+
+Function monthTestValidator(month, actualMonth: byte): Boolean;
+Begin
+  monthTestValidator := (month > 0) And (month <= actualMonth);
 End;
 
 Function yearValidator(year: word): Boolean;
@@ -55,9 +65,9 @@ Begin
   yearValidator := year < 2006;
 End;
 
-Function yearTestValidator(year: word): Boolean;
+Function yearTestValidator(year, actualYear: word): Boolean;
 Begin
-  yearTestValidator := year < 2025;
+  yearTestValidator := year <= actualYear;
 End;
 
 Function birthdayValidator(birthday: String): Boolean;
@@ -84,37 +94,39 @@ Begin
           month := StrToInt(Copy(birthday, 3, 2));
           year := StrToInt(Copy(birthday, 5, 4));
           birthdayValidator := dayValidator(day, month) And monthValidator(month
-                               )
-                               And yearValidator(year);
+                               ) And yearValidator(year);
         End;
     End;
 End;
 
-Function dateValidator(date: String): Boolean;
+Function dateValidator(newDate: String): Boolean;
 
 Var 
   i, day, month: byte;
-  year: word;
+  year, actualYear, actualDay, actualMonth: word;
 Begin
   i := 1;
   dateValidator := true;
-  If (Length(date) = 0) Or (Length(date) > 8) Then
+  If (Length(newDate) = 0) Or (Length(newDate) > 8) Then
     dateValidator := false
   Else
     Begin
       While (i < 9) And  dateValidator Do
         Begin
-          If Not (date[i] In ['0'..'9']) Then
+          If Not (newDate[i] In ['0'..'9']) Then
             dateValidator := False;
           Inc(i);
         End;
       If (dateValidator) Then
         Begin
-          day := StrToInt(Copy(date, 1, 2));
-          month := StrToInt(Copy(date, 3, 2));
-          year := StrToInt(Copy(date, 5, 4));
-          dateValidator := dayValidator(day, month) And monthValidator(month)
-                           And yearTestValidator(year);
+          day := StrToInt(Copy(newDate, 1, 2));
+          month := StrToInt(Copy(newDate, 3, 2));
+          year := StrToInt(Copy(newDate, 5, 4));
+          DecodeDate(Date, actualYear, actualMonth, actualDay);
+          dateValidator := dayTestValidator(day, actualDay) And
+                           monthTestValidator(month, actualMonth) And
+                           yearTestValidator(year,
+                           actualYear);
         End;
     End;
 End;
