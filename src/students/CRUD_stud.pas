@@ -49,12 +49,7 @@ Begin
       key := chr(27);
     End
   Else
-    Begin
-      // student.nombre := '';
-      // student.apellido := '';
-      // student.fechaNacimiento := '';
-      key := chr(27);
-    End;
+    key := chr(27);
 End;
 
 Procedure readStudent(leg: String; Var root:T_PUNT);
