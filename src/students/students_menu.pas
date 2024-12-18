@@ -129,11 +129,13 @@ Begin
         Else
           If (key = chr(13)) Then
             Begin
-              clrscr;
               Case here Of 
                 1: createStudent(leg, key, rootLeg, rootName);
                 Else
-                  key := chr(27);
+                  Begin
+                    clrscr;
+                    key := chr(27);
+                  End;
               End;
             End;
       End;

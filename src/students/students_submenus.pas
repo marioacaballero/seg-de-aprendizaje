@@ -20,34 +20,47 @@ Const
                                          'Fecha de Nacimiento', 'Volver');
   opciones4: array[1..nOp2] Of string = (dif1,dif2,dif3,dif4,dif5,'Volver');
 
+Procedure chargeSubMenu(Var student: T_Alumno);
 Procedure updateSubMenu(Var student: T_Alumno);
 
 Implementation
 
-Function submenuTitles(student: T_Alumno): string;
+Function submenuTitles(student: T_Alumno; show: Boolean): string;
 Begin
   titleText();
   textcolor(green);
-  line(96);
-  showStudentTitle();
-  line(96);
-  showStudent(student.numLegajo, student.apellido, student.nombre, student.
-              fechaNacimiento, student.estado, student.discapacidades);
-  line(96);
+  If (show) Then
+    Begin
+      line(96);
+      showStudentTitle();
+      line(96);
+      showStudent(student.numLegajo, student.apellido, student.nombre, student.
+                  fechaNacimiento, student.estado, student.discapacidades);
+      line(96);
+    End
+  Else
+    Begin
+      WriteLn('Legajo: ', student.numLegajo);
+      If (Length(student.nombre) > 3) Then
+        WriteLn('Nombres: ', student.nombre);
+      If (Length(student.apellido) > 3) Then
+        WriteLn('Apellidos: ', student.apellido);
+      If (Length(student.fechaNacimiento) > 3) Then
+        WriteLn('Fecha de Nacimiento (DDMMAAAA): ', student.fechaNacimiento);
+    End;
   writeln('');
 End;
 
-Procedure changeNameMenu(Var student: T_Alumno);
+Procedure changeNameMenu(Var student: T_Alumno; show: Boolean);
 
 Var 
-  name: string;
-  find: boolean;
+  name: String;
   key: Char;
 Begin
   name := '';
   Repeat
     clrscr;
-    submenuTitles(student);
+    submenuTitles(student, show);
     Write('Nombres: ', name);
     key := readkey;
     If (key <> chr(27)) Then
@@ -66,9 +79,10 @@ Begin
                  WriteLn;
                  WriteLn;
                  textcolor(white);
-                 WriteLn('Guardado');
+                 WriteLn('Guardado, enter para continuar');
                  textcolor(green);
-                 readkey;
+                 If (show) Then
+                   readkey;
                End
              Else
                Begin
@@ -87,20 +101,20 @@ Begin
         name := name + key;
       End;
   Until key = chr(27);
-  clrscr();
+  If show Then
+    clrscr();
 End;
 
-Procedure changeLastnameMenu(Var student: T_Alumno);
+Procedure changeLastnameMenu(Var student: T_Alumno; show: Boolean);
 
 Var 
   lastname: string;
-  find: boolean;
   key: Char;
 Begin
   lastname := '';
   Repeat
     clrscr;
-    submenuTitles(student);
+    submenuTitles(student, show);
     Write('Apellidos: ', lastname);
     key := readkey;
     If (key <> chr(27)) Then
@@ -119,9 +133,10 @@ Begin
                  WriteLn;
                  WriteLn;
                  textcolor(white);
-                 WriteLn('Guardado');
+                 WriteLn('Guardado, enter para continuar');
                  textcolor(green);
-                 readkey;
+                 If (show) Then
+                   readkey;
                End
              Else
                Begin
@@ -140,20 +155,20 @@ Begin
         lastname := lastname + key;
       End;
   Until key = chr(27);
-  clrscr();
+  If show Then
+    clrscr();
 End;
 
-Procedure changeBirthdayMenu(Var student: T_Alumno);
+Procedure changeBirthdayMenu(Var student: T_Alumno; show: Boolean);
 
 Var 
   birthday: string;
-  find: boolean;
   key: Char;
 Begin
   birthday := '';
   Repeat
     clrscr;
-    submenuTitles(student);
+    submenuTitles(student, show);
     Write('Fecha de nacimiento (DDMMAAAA): ', birthday);
     key := readkey;
     If (key <> chr(27)) Then
@@ -172,9 +187,10 @@ Begin
                  WriteLn;
                  WriteLn;
                  textcolor(white);
-                 WriteLn('Guardado');
+                 WriteLn('Guardado, enter para continuar');
                  textcolor(green);
-                 readkey;
+                 If (show) Then
+                   readkey;
                End
              Else
                Begin
@@ -193,7 +209,8 @@ Begin
         birthday := birthday + key;
       End;
   Until key = chr(27);
-  clrscr();
+  If show Then
+    clrscr();
 End;
 
 Procedure personalDataMenu(Var student: T_Alumno);
@@ -205,7 +222,7 @@ Begin
   here := 1;
   Repeat
     clrscr;
-    submenuTitles(student);
+    submenuTitles(student, true);
     For i:= 1 To nOp1 Do
       Begin
         If i = here Then
@@ -240,9 +257,9 @@ Begin
       If (key = chr(13)) Then
         Begin
           Case here Of 
-            1: changeNameMenu(student);
-            2: changeLastnameMenu(student);
-            3: changeBirthdayMenu(student);
+            1: changeNameMenu(student, True);
+            2: changeLastnameMenu(student, True);
+            3: changeBirthdayMenu(student, True);
             Else
               key := chr(27);
           End;
@@ -261,7 +278,7 @@ Begin
   here := 1;
   Repeat
     clrscr;
-    submenuTitles(student);
+    submenuTitles(student, true);
     For i:= 1 To nOp2 Do
       Begin
         If i = here Then
@@ -313,6 +330,38 @@ Begin
   clrscr;
 End;
 
+Procedure chargeSubMenu(Var student: T_Alumno);
+
+Var 
+  key: Char;
+Begin
+  Repeat
+    If (key <> Chr(27)) Then
+      Begin
+        changeNameMenu(student, false);
+        key := readkey;
+        If (key <> Chr(27)) Then
+          Begin
+            changeLastnameMenu(student, False);
+            key := readkey;
+            If (key <> Chr(27)) Then
+              Begin
+                changeBirthdayMenu(student, False);
+                key := readkey;
+                If (key = chr(13)) Then
+                  Begin
+                    WriteLn('');
+                    textcolor(white);
+                    WriteLn('Alumno dado de alta');
+                    key := chr(27);
+                    readkey;
+                  End;
+              End;
+          End;
+      End;
+  Until key = chr(27);
+End;
+
 Procedure updateSubMenu(Var student: T_Alumno);
 
 Var 
@@ -322,7 +371,7 @@ Begin
   here := 1;
   Repeat
     clrscr;
-    submenuTitles(student);
+    submenuTitles(student, true);
     If (student.estado) Then
       Begin
         For i:= 1 To nOp1 Do

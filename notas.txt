@@ -20,7 +20,7 @@ Alumnos:
 Correciones y/o sugerencias del 12/12/2024
 Alumnos:
 [x] En el modificar, mostrar formato de fecha (DDMMAAAA)
-[-] Poder cancelar en el dado de alta
+[x] Poder cancelar en el dado de alta
 [x] Poder cancelar en el modificar los datos personales
 [-] Corregir el arbol de apynom al momento de editar nombre y apellido (eliminar el nodo y volver a insertarlo)
 

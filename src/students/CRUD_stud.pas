@@ -27,20 +27,31 @@ Var
 Begin
   Assign(f, path_alum);
   Reset(f);
-  chargeStudent(student, leg);
-  Seek(f, FileSize(f));
-  studTreeLeg.clave := student.numLegajo;
-  studTreeLeg.pos_arch := FileSize(f);
-  studTreeApyN.clave := student.apellido + ' ' + student.nombre;
-  studTreeApyN.pos_arch := FileSize(f);
-  Write(f, student);
-  CARGAR_ARBOL(rootLeg, studTreeLeg);
-  CARGAR_ARBOL(rootName, studTreeApyN);
-  closeStudFile(f);
-  key := chr(27);
-  WriteLn('');
-  // textcolor(white);
-  WriteLn('Alumno dado de alta');
+  student.numLegajo := leg;
+  chargeSubMenu(student);
+  If (Length(student.fechaNacimiento) > 6) Then
+    Begin
+      student.estado := True;
+      initDiscapacidades(student);
+      textcolor(white);
+      Seek(f, FileSize(f));
+      studTreeLeg.clave := student.numLegajo;
+      studTreeLeg.pos_arch := FileSize(f);
+      studTreeApyN.clave := student.apellido + ' ' + student.nombre;
+      studTreeApyN.pos_arch := FileSize(f);
+      Write(f, student);
+      CARGAR_ARBOL(rootLeg, studTreeLeg);
+      CARGAR_ARBOL(rootName, studTreeApyN);
+      closeStudFile(f);
+      key := chr(27);
+    End
+  Else
+    Begin
+      student.nombre := '';
+      student.apellido := '';
+      student.fechaNacimiento := '';
+      key := chr(27);
+    End;
 End;
 
 Procedure readStudent(leg: String; Var root:T_PUNT);
