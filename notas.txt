@@ -2,6 +2,8 @@
 [-] Se puede usar arbol, lista o busqueda secuencial para mostrar las evaluaciones de un alumno
 [-] A menor valor menor dificultad
 
+-------------------------------------------------------------------------------
+
 Correcciones y/o sugerencias del 28/11/2024
 Alumnos: 
 [x] Respecto al menu se debe mostrar la cantidad de caracteres a ingresar
@@ -13,9 +15,13 @@ Alumnos:
 [x] Todos los subsmenus deben ser con movimiento de las flechas
 [x] En cualquier menu se debe poder salir con "esc"
 [x] Validacion de dificultades (debe contemplar el uso de numeros)
-[-] OPCIONAL: Agregar confirmaciones
-[-] Se puede agregar una validacion para S/N (sirve a futuro para confirmaciones)
 [x] Agregar cuadro de dificultades cuando se muestra 1 alumno
+
+Opcionales
+[-] Agregar confirmaciones
+[-] Se puede agregar una validacion para S/N (sirve a futuro para confirmaciones)
+
+-------------------------------------------------------------------------------
 
 Correciones y/o sugerencias del 12/12/2024
 Alumnos:
@@ -27,10 +33,10 @@ Alumnos:
 Evaluaciones:
 [x] Cambiar nombres de los menus para que sea mas intuitivo
 [x] Agregar el getDate en pascal para obtener la fecha actual
-[-] Si una dificultad tiene valoracion 0 se deberia cambiar a N ya que no le cuesta (justificar)
-[-] En el listado de evaluaciones agregar la informacion del alumno y informacion de la dificultad. Opcional quitar el legajo de la lista de evaluaciones.
+[x] Si una dificultad tiene valoracion 0 se deberia cambiar a N ya que no le cuesta (justificar)
 
 Listado:
-Poder elejir la dificultad y mostrar todos los que la tienen
+[-] En el listado de evaluaciones agregar la informacion del alumno y informacion de la dificultad. Opcional quitar el legajo de la lista de evaluaciones.
+[-] Poder elejir la dificultad y mostrar todos los que la tienen
 
 

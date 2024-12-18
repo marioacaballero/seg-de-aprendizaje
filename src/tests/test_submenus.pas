@@ -260,7 +260,7 @@ Begin
   clrscr();
 End;
 
-Procedure selectDif(leg: String);
+Procedure selectDif(leg: String; Var rootLeg: T_PUNT);
 
 Var 
   i, here: integer;
@@ -274,12 +274,19 @@ Begin
   findSeg(leg, date, pos);
   If pos >= 0 Then
     Begin
-      testMemo(test, pos);
       Repeat
+        testMemo(test, pos);
         clrscr;
         titleTestText();
         textcolor(green);
         writeln('');
+        line(104);
+        showTestTitle();
+        line(104);
+        showTest(test.numLegajo, test.fechaEval, test.seguimiento, test.
+                 observacion);
+        line(104);
+        WriteLn;
         For i:= 1 To nOp3 Do
           Begin
             If i = here Then
@@ -289,15 +296,13 @@ Begin
             If (i < 6) Then
               Begin
                 If (test.seguimiento[i] >= 0) Then
-                  Begin
-                    haveDif := IntToStr(test.seguimiento[i]);
-                    WriteLn(opciones3[i], ': ', haveDif);
-                  End;
-                // Else
-                //   haveDif := 'No corresponde';
+                  haveDif := IntToStr(test.seguimiento[i])
+                Else
+                  haveDif := 'No corresponde';
+                WriteLn(i, '. ', opciones3[i], ': ', haveDif);
               End
             Else
-              WriteLn(opciones3[i]);
+              WriteLn(i, '. ', opciones3[i]);
           End;
         key := ReadKey;
 
@@ -325,7 +330,10 @@ Begin
           If (key = chr(13)) Then
             Begin
               If (here < 6) Then
-                chargeOneDif(here, test, pos)
+                Begin
+                  If (test.seguimiento[here] >= 0) Then
+                    chargeOneDif(here, test, pos, rootLeg);
+                End
               Else If (here = 6) Then
                      chargeObs(test, pos)
               Else
@@ -370,7 +378,7 @@ Begin
                  BUSCAR(rootLeg,leg, find);
                  If (find) Then
                    Begin
-                     selectDif(leg);
+                     selectDif(leg, rootLeg);
                    End
                  Else
                    notFindMenu();

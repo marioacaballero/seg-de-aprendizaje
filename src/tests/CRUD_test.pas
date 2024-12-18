@@ -47,8 +47,13 @@ Begin
   Else
     Begin
       testMemo(test, pos);
+      WriteLn;
+      line(104);
+      showTestTitle();
+      line(104);
       showTest(test.numLegajo, test.fechaEval, test.seguimiento, test.
                observacion);
+      line(104);
     End;
 End;
 

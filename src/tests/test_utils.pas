@@ -8,7 +8,7 @@ Interface
 {$unitPath ./}
 
 Uses crt, sysutils, test_entity, init_test_file, stud_entity, init_stud_file,
-general_displays, validator;
+general_displays, validator, arbol_unit, students_utils;
 
 Const 
   difArray: array[1..5] Of string = (dif1,dif2,dif3,dif4,dif5);
@@ -17,7 +17,8 @@ Procedure chargeTest(Var test: T_Test; leg: String; pos: word);
 Procedure findSeg(leg, date: String; Var pos: integer);
 Procedure validateDate(Var data: String);
 Procedure testMemo (Var test: T_Test; pos: integer);
-Procedure chargeOneDif(dif: Integer; Var test: T_Test; pos: integer);
+Procedure chargeOneDif(dif: Integer; Var test: T_Test; pos: integer; Var rootLeg
+                       : T_PUNT);
 Procedure chargeObs(Var test: T_Test; pos: integer);
 
 Implementation
@@ -189,7 +190,8 @@ Begin
   closeTestFile(f);
 End;
 
-Procedure chargeOneDif(dif: Integer; Var test: T_Test; pos: integer);
+Procedure chargeOneDif(dif: Integer; Var test: T_Test; pos: integer; Var rootLeg
+                       : T_PUNT);
 
 Var 
   point: string;
@@ -201,6 +203,8 @@ Begin
   checkPoints(point, 'Ingrese nuevo valor: ');
   test.seguimiento[dif] := StrToInt(point);
   saveTest(test, pos);
+  If (point = '0') Then
+    removeDif(test.numLegajo, dif, rootLeg);
 End;
 
 Procedure chargeObs(Var test: T_Test; pos: integer);

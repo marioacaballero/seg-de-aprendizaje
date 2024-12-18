@@ -6,13 +6,14 @@ Interface
 {$unitpath ../utils/}
 {$unitpath ./}
 
-Uses crt, stud_entity, validator;
+Uses crt, stud_entity, validator, arbol_unit, usa_arbol, init_stud_file;
 
 Procedure initDiscapacidades(Var student: T_Alumno);
 Procedure checkData(Var data: String; text: String);
 Procedure chargeDif(Var student: T_Alumno; here: Integer);
 Procedure chargeStudent(Var student: T_Alumno; leg: String);
 Procedure changeState(Var student: T_Alumno);
+Procedure removeDif(leg: String; dif: integer; Var rootLeg: T_PUNT);
 
 Implementation
 
@@ -70,6 +71,25 @@ End;
 Procedure chargeDif(Var student: T_Alumno; here: Integer);
 Begin
   student.discapacidades[here] := Not student.discapacidades[here];
+End;
+
+Procedure removeDif(leg: String; dif: integer; Var rootLeg: T_PUNT);
+
+Var 
+  enc: Boolean;
+  x: T_DATO_ARBOL;
+  f: T_File_Alum;
+  student: T_Alumno;
+Begin
+  PREORDEN(rootLeg, leg, enc, x);
+  Assign(f, path_alum);
+  Reset(f);
+  Seek(f, x.pos_arch);
+  Read(f, student);
+  student.discapacidades[dif] := False;
+  Seek(f, filepos(f) - 1);
+  Write(f, student);
+  closeStudFile(f);
 End;
 
 Procedure chargeStudent(Var student: T_Alumno; leg: String);
