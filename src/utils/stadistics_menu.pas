@@ -8,10 +8,9 @@ Interface
 Uses crt, stadistics_utils;
 
 Const 
-  nOp = 4;
+  nOp = 3;
   opciones: array[1..nOp] Of string = ('Evaluaciones por discapacidad',
-                                       'Mayor grado de dificultad'
-                                       , 'Otro', 'Salir');
+                                       'Mayor grado de dificultad', 'Salir');
 Procedure menuStadistics();
 
 Implementation
@@ -72,7 +71,6 @@ Begin
           Case here Of 
             1: difStadistics();
             2: highDifStadistics();
-            3: WriteLn('Otro');
             Else
               key := chr(27);
           End;
