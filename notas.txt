@@ -19,15 +19,15 @@ Alumnos:
 
 Correciones y/o sugerencias del 12/12/2024
 Alumnos:
-[] En el modificar, mostrar formato de fecha (DDMMAAAA)
-[] Poder cancelar en el dado de alta o modificar (los datos personales)
-[] Corregir el arbol de apynom al momento de editar nombre y apellido (eliminar el nodo y volver a insertarlo)
+[x] En el modificar, mostrar formato de fecha (DDMMAAAA)
+[-] Poder cancelar en el dado de alta o modificar (los datos personales)
+[-] Corregir el arbol de apynom al momento de editar nombre y apellido (eliminar el nodo y volver a insertarlo)
 
 Evaluaciones:
-[] Cambiar nombres de los menus para que sea mas intuitivo
-[] Agregar el getDate en pascal para obtener la fecha actual
-[] Si una dificultad tiene valoracion 0 se deberia cambiar a N ya que no le cuesta (justificar)
-[] En el listado de evaluaciones agregar la informacion del alumno y informacion de la dificultad. Opcional quitar el legajo de la lista de evaluaciones.
+[-] Cambiar nombres de los menus para que sea mas intuitivo
+[-] Agregar el getDate en pascal para obtener la fecha actual
+[-] Si una dificultad tiene valoracion 0 se deberia cambiar a N ya que no le cuesta (justificar)
+[-] En el listado de evaluaciones agregar la informacion del alumno y informacion de la dificultad. Opcional quitar el legajo de la lista de evaluaciones.
 
 Listado:
 Poder elejir la dificultad y mostrar todos los que la tienen

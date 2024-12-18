@@ -149,7 +149,7 @@ End;
 Procedure changeBirthday(Var student: T_Alumno);
 Begin
   WriteLn;
-  write('Fecha de nacimiento: ');
+  write('Fecha de nacimiento (DDMMAAAA): ');
   readln(student.fechaNacimiento);
   If (Not birthdayValidator(student.fechaNacimiento)) Then
     Begin
