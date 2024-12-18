@@ -1,6 +1,7 @@
-[-] El archivo de evaluaciones se carga de manera cronologica (ya esta ordenado por fecha)
-[-] Se puede usar arbol, lista o busqueda secuencial para mostrar las evaluaciones de un alumno
-[-] A menor valor menor dificultad
+SUGERENCIAS Y/O ACLARACIONES
+- El archivo de evaluaciones se carga de manera cronologica (ya esta ordenado por fecha)
+- Se puede usar arbol, lista o busqueda secuencial para mostrar las evaluaciones de un alumno
+- A menor valor menor dificultad
 
 -------------------------------------------------------------------------------
 
@@ -37,6 +38,5 @@ Evaluaciones:
 
 Listado:
 [x] En el listado de evaluaciones agregar la informacion del alumno y informacion de la dificultad. Opcional quitar el legajo de la lista de evaluaciones.
-[-] Poder elejir la dificultad y mostrar todos los que la tienen
-
+[x] Poder elejir la dificultad y mostrar todos los que la tienen
 

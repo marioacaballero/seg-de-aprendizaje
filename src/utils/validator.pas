@@ -45,9 +45,15 @@ Begin
   End;
 End;
 
-Function dayTestValidator(day, actualDate: Byte): Boolean;
+Function dayTestValidator(day, actualDay, month, actualMonth: Integer; year,
+                          actualYear: word): Boolean;
 Begin
-  dayTestValidator := day <= actualDate;
+  If (year < actualYear) Or ((year = actualYear) And (month < actualMonth)) Then
+    dayTestValidator := True
+  Else If (year = actualYear) And (month = actualMonth) Then
+         dayTestValidator := day <= actualDay
+  Else
+    dayTestValidator := False;
 End;
 
 Function monthValidator(month: byte): Boolean;
@@ -55,9 +61,13 @@ Begin
   monthValidator := (month > 0) And (month < 13);
 End;
 
-Function monthTestValidator(month, actualMonth: byte): Boolean;
+Function monthTestValidator(month, actualMonth: Integer; year, actualYear: word)
+: Boolean;
 Begin
-  monthTestValidator := (month > 0) And (month <= actualMonth);
+  If year < actualYear Then
+    monthTestValidator := True
+  Else
+    monthTestValidator := month <= actualMonth;
 End;
 
 Function yearValidator(year: word): Boolean;
@@ -123,10 +133,11 @@ Begin
           month := StrToInt(Copy(newDate, 3, 2));
           year := StrToInt(Copy(newDate, 5, 4));
           DecodeDate(Date, actualYear, actualMonth, actualDay);
-          dateValidator := dayTestValidator(day, actualDay) And
-                           monthTestValidator(month, actualMonth) And
-                           yearTestValidator(year,
-                           actualYear);
+          dateValidator := yearTestValidator(year, actualYear) And
+                           monthTestValidator(month, actualMonth, year,
+                           actualYear) And
+                           dayTestValidator(day, actualDay, month, actualMonth,
+                           year, actualYear);
         End;
     End;
 End;

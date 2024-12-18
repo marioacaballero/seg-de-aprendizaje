@@ -3,7 +3,9 @@ Unit stadistics_menu;
 
 Interface
 
-Uses crt;
+{$unitPath ./}
+
+Uses crt, stadistics_utils;
 
 Const 
   nOp = 4;
@@ -67,9 +69,8 @@ Begin
     Else
       If (key = chr(13)) Then
         Begin
-          clrscr;
           Case here Of 
-            1: WriteLn('Distribucion de evaluaciones por discapacidad');
+            1: difStadistics();
             2: WriteLn('Discapacidad con mayor grado de dificultad');
             3: WriteLn('Otro');
             Else
