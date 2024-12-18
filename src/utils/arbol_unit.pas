@@ -30,6 +30,8 @@ Procedure INORDEN(Var RAIZ:T_PUNT);
 Procedure PREORDEN(RAIZ:T_PUNT; BUSCADO:String; Var ENC:BOOLEAN; Var X:
                    T_DATO_ARBOL
 );
+Procedure INORDEN_DIF(Var RAIZ:T_PUNT; dif: Integer);
+
 
 Implementation
 Procedure CREAR_ARBOL (Var RAIZ:T_PUNT);
@@ -129,6 +131,27 @@ Begin
       showStudent(student.numLegajo, student.apellido, student.nombre, student.
                   fechaNacimiento, student.estado, student.discapacidades);
       INORDEN (RAIZ^.SAD);
+      closeStudFile(f);
+    End;
+End;
+
+Procedure INORDEN_DIF(Var RAIZ:T_PUNT; dif: Integer);
+
+Var 
+  f: T_File_Alum;
+  student: T_Alumno;
+Begin
+  If RAIZ <> Nil Then
+    Begin
+      INORDEN_DIF(RAIZ^.SAI, dif);
+      Assign(f, path_alum);
+      reset(f);
+      seek(f, RAIZ^.INFO.pos_arch);
+      Read(f, student);
+      If (student.discapacidades[dif]) Then
+        showStudent(student.numLegajo, student.apellido, student.nombre, student
+                    .fechaNacimiento, student.estado, student.discapacidades);
+      INORDEN_DIF(RAIZ^.SAD, dif);
       closeStudFile(f);
     End;
 End;

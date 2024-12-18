@@ -16,6 +16,7 @@ Procedure LISTAR (root:T_PUNT);
 Procedure initTree(Var root: T_PUNT);
 Procedure initTreeApYNom(Var root: T_PUNT);
 Procedure initTreeTest(Var root: T_PUNT);
+Procedure LISTAR_DIF (root:T_PUNT; dif: Integer);
 
 Implementation
 Procedure CARGAR_ARBOL(Var root:T_PUNT; X: T_DATO_ARBOL);
@@ -43,6 +44,21 @@ Begin
       showStudentTitle();
       line(96);
       INORDEN (root);
+      line(96);
+    End
+  Else WRITELN ('No hay registros');
+  readkey;
+End;
+
+Procedure LISTAR_DIF (root:T_PUNT; dif: Integer);
+Begin
+  If Not ARBOL_VACIO (root) Then
+    Begin
+      showDifficulties();
+      line(96);
+      showStudentTitle();
+      line(96);
+      INORDEN_DIF (root, dif);
       line(96);
     End
   Else WRITELN ('No hay registros');

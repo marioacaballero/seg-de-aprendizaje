@@ -11,9 +11,12 @@ CRUD_stud;
 
 Const 
   nOp = 4;
+  nOp2 = 6;
   opciones: array[1..nOp] Of string = ('Alumnos A-Z',
                                        'Evaluaciones de un alumno',
                                        'Alumnos por dificultad', 'Salir');
+  opciones4: array[1..nOp2] Of string = (dif1,dif2,dif3,dif4,dif5,'Volver');
+
 Procedure menuLits(Var rootLeg, rootName: T_PUNT);
 
 Implementation
@@ -90,6 +93,67 @@ Begin
   clrscr();
 End;
 
+Procedure selectDifMenu (Var rootName: T_PUNT);
+
+Var 
+  i, here: integer;
+  key: Char;
+Begin
+  here := 1;
+  Repeat
+    clrscr;
+    textcolor(white);
+    WriteLn('--------------------------------');
+    WriteLn('|                              |');
+    WriteLn('|          LISTADOS            |');
+    WriteLn('|                              |');
+    WriteLn('--------------------------------');
+    writeln('');
+    textcolor(lightgray);
+    WriteLn('Elija una dificultad:');
+    WriteLn;
+    For i:= 1 To nOp2 Do
+      Begin
+        If i = here Then
+          textcolor(white)
+        Else
+          textcolor(green);
+        WriteLn(i, '. ', opciones4[i]);
+      End;
+    key := ReadKey;
+
+    If key = chr(0) Then
+      Begin
+        key := ReadKey;
+        Case key Of 
+          #72:
+               Begin
+                 If (here > 1) Then
+                   here := here - 1
+                 Else
+                   here := nOp2;
+               End;
+          #80:
+               Begin
+                 If (here < nOp2) Then
+                   here := here + 1
+                 Else
+                   here := 1;
+               End;
+        End;
+      End
+    Else
+      If (key = chr(13)) Then
+        Begin
+          If (here < 6) Then
+            LISTAR_DIF(rootName, here)
+          Else
+            key := chr(27);
+        End;
+  Until key = chr(27);
+  clrscr;
+End;
+
 Procedure menuLits(Var rootLeg, rootName: T_PUNT);
 
 Var 
@@ -148,7 +212,7 @@ Begin
           Case here Of 
             1: LISTAR(rootName);
             2: testByStudentMenu(rootLeg);
-            3: WriteLn('Alumnos por dificultad');
+            3: selectDifMenu(rootName);
             Else
               key := chr(27);
           End;
