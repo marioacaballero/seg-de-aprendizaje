@@ -77,6 +77,9 @@ Begin
   WriteLn('| [ 1 2 3 4 5 ]                                    |');
   WriteLn('|                                                  |');
   WriteLn('| Se representa con S si la tiene o N si no        |');
+  WriteLn('|                                                  |');
+  WriteLn('| En el seguimiento se muestra con rango de 0 a 4  |');
+  WriteLn('| Siendo 0 si no hay dificultad y 4 si le cuesta.  |');
 End;
 
 Function showDifficulties(): string;

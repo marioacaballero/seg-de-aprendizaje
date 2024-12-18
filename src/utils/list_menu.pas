@@ -6,17 +6,91 @@ Interface
 {$unitPath ../utils/}
 {$unitPath ../tests/}
 
-Uses crt, usa_arbol, arbol_unit, CRUD_test;
+Uses crt, usa_arbol, arbol_unit, CRUD_test, validator, general_displays,
+CRUD_stud;
 
 Const 
   nOp = 4;
   opciones: array[1..nOp] Of string = ('Alumnos A-Z',
                                        'Evaluaciones de un alumno',
                                        'Alumnos por dificultad', 'Salir');
-Procedure menuLits(root: T_PUNT);
+Procedure menuLits(Var rootLeg, rootName: T_PUNT);
 
 Implementation
-Procedure menuLits(root: T_PUNT);
+
+Procedure testByStudentMenu(Var rootLeg: T_PUNT);
+
+Var 
+  leg: string;
+  find: boolean;
+  key: Char;
+Begin
+  leg := '';
+  Repeat
+    clrscr;
+    textcolor(white);
+    WriteLn('--------------------------------');
+    WriteLn('|                              |');
+    WriteLn('|          LISTADOS            |');
+    WriteLn('|                              |');
+    WriteLn('--------------------------------');
+    writeln('');
+    textcolor(lightgray);
+    WriteLn('Ingrese el legajo y presione ENTER');
+    WriteLn('Debe contener solamente 8 numeros');
+    WriteLn('');
+    WriteLn('Presione ESC para volver');
+    textcolor(green);
+    WriteLn('');
+    Write('Numero de legajo: ', leg);
+    key := readkey;
+    If (key <> chr(27)) Then
+      If (key = chr(8)) Then
+        Begin
+          clrscr;
+          // Para quitarle uno al string uso la funcion Delete
+          Delete(leg, Length(leg), 1);
+        End
+    Else If (key = chr(13)) Then
+           Begin
+             If (legValidator(leg)) Then
+               Begin
+                 BUSCAR(rootLeg,leg, find);
+                 If (find) Then
+                   Begin
+                     writeln('');
+                     showDifficulties();
+                     readStudent(leg, rootLeg);
+                     writeln('');
+                     allTestByStudent(leg);
+                   End
+                 Else
+                   Begin
+                     WriteLn('No se encontro el alumno');
+                     readkey;
+                   End;
+               End
+             Else
+               Begin
+                 textcolor(red);
+                 WriteLn;
+                 WriteLn;
+                 WriteLn('Debe contener solo 8 numeros');
+                 textcolor(green);
+                 readkey;
+                 clrscr;
+               End;
+           End
+    Else
+      Begin
+        clrscr;
+        leg := leg + key;
+      End;
+  Until key = chr(27);
+  clrscr();
+End;
+
+Procedure menuLits(Var rootLeg, rootName: T_PUNT);
 
 Var 
   w: string;
@@ -72,8 +146,8 @@ Begin
         Begin
           clrscr;
           Case here Of 
-            1: LISTAR(root);
-            2: allTest();
+            1: LISTAR(rootName);
+            2: testByStudentMenu(rootLeg);
             3: WriteLn('Alumnos por dificultad');
             Else
               key := chr(27);

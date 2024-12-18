@@ -36,7 +36,7 @@ Evaluaciones:
 [x] Si una dificultad tiene valoracion 0 se deberia cambiar a N ya que no le cuesta (justificar)
 
 Listado:
-[-] En el listado de evaluaciones agregar la informacion del alumno y informacion de la dificultad. Opcional quitar el legajo de la lista de evaluaciones.
+[x] En el listado de evaluaciones agregar la informacion del alumno y informacion de la dificultad. Opcional quitar el legajo de la lista de evaluaciones.
 [-] Poder elejir la dificultad y mostrar todos los que la tienen
 
 

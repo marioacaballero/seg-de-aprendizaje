@@ -86,7 +86,7 @@ Begin
           Case here Of 
             1: menuStudents(rootLeg, rootName);
             2: menuTest(rootLeg);
-            3: menuLits(rootName);
+            3: menuLits(rootLeg, rootName);
             4: menuStadistics();
             Else
               Begin

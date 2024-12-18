@@ -10,7 +10,7 @@ Uses crt, test_entity, test_utils, init_test_file, test_display,
 general_displays;
 
 Procedure createTest(leg: String; pos: word);
-Procedure allTest();
+Procedure allTestByStudent(leg: String);
 Procedure readTest(leg: String; Var date: String);
 
 Implementation
@@ -57,7 +57,7 @@ Begin
     End;
 End;
 
-Procedure allTest();
+Procedure allTestByStudent(leg: String);
 
 Var 
   f: T_File_Test;
@@ -65,14 +65,16 @@ Var
 Begin
   Assign(f, path_test);
   Reset(f);
+  WriteLn;
   line(104);
   showTestTitle();
   line(104);
   While Not Eof(f) Do
     Begin
       Read(f, test);
-      showTest(test.numLegajo, test.fechaEval, test.seguimiento, test.
-               observacion)
+      If (test.numLegajo = leg) Then
+        showTest(test.numLegajo, test.fechaEval, test.seguimiento, test.
+                 observacion)
     End;
   line(104);
   closeTestFile(f);
