@@ -3,9 +3,11 @@ Unit students_submenus;
 
 Interface
 
+{$unitPath ../utils/}
 {$unitPath ./}
 
-Uses crt, stud_entity, stud_display, students_utils, general_displays;
+Uses crt, stud_entity, stud_display, students_utils, general_displays, validator
+;
 
 Const 
   nOp1 = 4;
@@ -22,6 +24,178 @@ Procedure updateSubMenu(Var student: T_Alumno);
 
 Implementation
 
+Function submenuTitles(student: T_Alumno): string;
+Begin
+  titleText();
+  textcolor(green);
+  line(96);
+  showStudentTitle();
+  line(96);
+  showStudent(student.numLegajo, student.apellido, student.nombre, student.
+              fechaNacimiento, student.estado, student.discapacidades);
+  line(96);
+  writeln('');
+End;
+
+Procedure changeNameMenu(Var student: T_Alumno);
+
+Var 
+  name: string;
+  find: boolean;
+  key: Char;
+Begin
+  name := '';
+  Repeat
+    clrscr;
+    submenuTitles(student);
+    Write('Nombres: ', name);
+    key := readkey;
+    If (key <> chr(27)) Then
+      If (key = chr(8)) Then
+        Begin
+          clrscr;
+          // Para quitarle uno al string uso la funcion Delete
+          Delete(name, Length(name), 1);
+        End
+    Else If (key = chr(13)) Then
+           Begin
+             If (nameValidator(name)) Then
+               Begin
+                 student.nombre := name;
+                 key := chr(27);
+                 WriteLn;
+                 WriteLn;
+                 textcolor(white);
+                 WriteLn('Guardado');
+                 textcolor(green);
+                 readkey;
+               End
+             Else
+               Begin
+                 textcolor(red);
+                 WriteLn;
+                 WriteLn;
+                 WriteLn('Debe contener al menos 3 letras sin numeros');
+                 textcolor(green);
+                 readkey;
+                 clrscr;
+               End;
+           End
+    Else
+      Begin
+        clrscr;
+        name := name + key;
+      End;
+  Until key = chr(27);
+  clrscr();
+End;
+
+Procedure changeLastnameMenu(Var student: T_Alumno);
+
+Var 
+  lastname: string;
+  find: boolean;
+  key: Char;
+Begin
+  lastname := '';
+  Repeat
+    clrscr;
+    submenuTitles(student);
+    Write('Apellidos: ', lastname);
+    key := readkey;
+    If (key <> chr(27)) Then
+      If (key = chr(8)) Then
+        Begin
+          clrscr;
+          // Para quitarle uno al string uso la funcion Delete
+          Delete(lastname, Length(lastname), 1);
+        End
+    Else If (key = chr(13)) Then
+           Begin
+             If (lastNameValidator(lastname)) Then
+               Begin
+                 student.apellido := lastname;
+                 key := chr(27);
+                 WriteLn;
+                 WriteLn;
+                 textcolor(white);
+                 WriteLn('Guardado');
+                 textcolor(green);
+                 readkey;
+               End
+             Else
+               Begin
+                 textcolor(red);
+                 WriteLn;
+                 WriteLn;
+                 WriteLn('Debe contener al menos 3 letras sin numeros');
+                 textcolor(green);
+                 readkey;
+                 clrscr;
+               End;
+           End
+    Else
+      Begin
+        clrscr;
+        lastname := lastname + key;
+      End;
+  Until key = chr(27);
+  clrscr();
+End;
+
+Procedure changeBirthdayMenu(Var student: T_Alumno);
+
+Var 
+  birthday: string;
+  find: boolean;
+  key: Char;
+Begin
+  birthday := '';
+  Repeat
+    clrscr;
+    submenuTitles(student);
+    Write('Fecha de nacimiento (DDMMAAAA): ', birthday);
+    key := readkey;
+    If (key <> chr(27)) Then
+      If (key = chr(8)) Then
+        Begin
+          clrscr;
+          // Para quitarle uno al string uso la funcion Delete
+          Delete(birthday, Length(birthday), 1);
+        End
+    Else If (key = chr(13)) Then
+           Begin
+             If (birthdayValidator(birthday)) Then
+               Begin
+                 student.fechaNacimiento := birthday;
+                 key := chr(27);
+                 WriteLn;
+                 WriteLn;
+                 textcolor(white);
+                 WriteLn('Guardado');
+                 textcolor(green);
+                 readkey;
+               End
+             Else
+               Begin
+                 textcolor(red);
+                 WriteLn;
+                 WriteLn;
+                 WriteLn('Fecha invalida');
+                 textcolor(green);
+                 readkey;
+                 clrscr;
+               End;
+           End
+    Else
+      Begin
+        clrscr;
+        birthday := birthday + key;
+      End;
+  Until key = chr(27);
+  clrscr();
+End;
+
 Procedure personalDataMenu(Var student: T_Alumno);
 
 Var 
@@ -31,15 +205,7 @@ Begin
   here := 1;
   Repeat
     clrscr;
-    titleText();
-    textcolor(green);
-    line(96);
-    showStudentTitle();
-    line(96);
-    showStudent(student.numLegajo, student.apellido, student.nombre, student.
-                fechaNacimiento, student.estado, student.discapacidades);
-    line(96);
-    writeln('');
+    submenuTitles(student);
     For i:= 1 To nOp1 Do
       Begin
         If i = here Then
@@ -74,9 +240,9 @@ Begin
       If (key = chr(13)) Then
         Begin
           Case here Of 
-            1: changeName(student);
-            2: changeLastName(student);
-            3: changeBirthday(student);
+            1: changeNameMenu(student);
+            2: changeLastnameMenu(student);
+            3: changeBirthdayMenu(student);
             Else
               key := chr(27);
           End;
@@ -95,15 +261,7 @@ Begin
   here := 1;
   Repeat
     clrscr;
-    titleText();
-    textcolor(green);
-    line(96);
-    showStudentTitle();
-    line(96);
-    showStudent(student.numLegajo, student.apellido, student.nombre, student.
-                fechaNacimiento, student.estado, student.discapacidades);
-    line(96);
-    writeln('');
+    submenuTitles(student);
     For i:= 1 To nOp2 Do
       Begin
         If i = here Then
@@ -164,15 +322,7 @@ Begin
   here := 1;
   Repeat
     clrscr;
-    titleText();
-    textcolor(green);
-    line(96);
-    showStudentTitle();
-    line(96);
-    showStudent(student.numLegajo, student.apellido, student.nombre, student.
-                fechaNacimiento, student.estado, student.discapacidades);
-    line(96);
-    writeln('');
+    submenuTitles(student);
     If (student.estado) Then
       Begin
         For i:= 1 To nOp1 Do

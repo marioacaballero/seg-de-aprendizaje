@@ -144,7 +144,7 @@ End;
 Procedure menuStudents(Var rootLeg, rootName: T_PUNT);
 
 Var 
-  w, leg: string;
+  leg: string;
   find: boolean;
   key: Char;
 Begin

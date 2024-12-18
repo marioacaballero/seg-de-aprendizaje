@@ -13,9 +13,9 @@ Procedure checkData(Var data: String; text: String);
 Procedure chargeDif(Var student: T_Alumno; here: Integer);
 Procedure chargeStudent(Var student: T_Alumno; leg: String);
 Procedure changeState(Var student: T_Alumno);
-Procedure changeLastName(Var student: T_Alumno);
-Procedure changeName(Var student: T_Alumno);
-Procedure changeBirthday(Var student: T_Alumno);
+// Procedure changeLastName(Var student: T_Alumno);
+// Procedure changeName(Var student: T_Alumno);
+// Procedure changeBirthday(Var student: T_Alumno);
 
 Implementation
 
@@ -112,52 +112,52 @@ Begin
     student.estado := True;
 End;
 
-Procedure changeLastName(Var student: T_Alumno);
+// Procedure changeLastName(Var student: T_Alumno);
 
-Var apellido: string;
-Begin
-  WriteLn;
-  write('Apellidos: ');
-  readln(apellido);
-  student.apellido := LowerCase(apellido);
-  If (Not lastNameValidator(student.apellido)) Then
-    Begin
-      textcolor(red);
-      WriteLn('El apellido debe contener al menos 3 letras y no numeros');
-      textcolor(green);
-      changeLastName(student);
-    End;
-End;
+// Var apellido: string;
+// Begin
+//   WriteLn;
+//   write('Apellidos: ');
+//   readln(apellido);
+//   student.apellido := LowerCase(apellido);
+//   If (Not lastNameValidator(student.apellido)) Then
+//     Begin
+//       textcolor(red);
+//       WriteLn('El apellido debe contener al menos 3 letras y no numeros');
+//       textcolor(green);
+//       changeLastName(student);
+//     End;
+// End;
 
-Procedure changeName(Var student: T_Alumno);
+// Procedure changeName(Var student: T_Alumno);
 
-Var nombre: string;
-Begin
-  WriteLn;
-  write('Nombres: ');
-  readln(nombre);
-  student.nombre := LowerCase(nombre);
-  If (Not nameValidator(student.nombre)) Then
-    Begin
-      textcolor(red);
-      WriteLn('El nombre debe contener al menos 3 letras y no numeros');
-      textcolor(green);
-      changeName(student);
-    End;
-End;
+// Var nombre: string;
+// Begin
+//   WriteLn;
+//   write('Nombres: ');
+//   readln(nombre);
+//   student.nombre := LowerCase(nombre);
+//   If (Not nameValidator(student.nombre)) Then
+//     Begin
+//       textcolor(red);
+//       WriteLn('El nombre debe contener al menos 3 letras y no numeros');
+//       textcolor(green);
+//       changeName(student);
+//     End;
+// End;
 
-Procedure changeBirthday(Var student: T_Alumno);
-Begin
-  WriteLn;
-  write('Fecha de nacimiento (DDMMAAAA): ');
-  readln(student.fechaNacimiento);
-  If (Not birthdayValidator(student.fechaNacimiento)) Then
-    Begin
-      textcolor(red);
-      WriteLn('Fecha invalida');
-      textcolor(green);
-      changeBirthday(student);
-    End;
-End;
+// Procedure changeBirthday(Var student: T_Alumno);
+// Begin
+//   WriteLn;
+//   write('Fecha de nacimiento (DDMMAAAA): ');
+//   readln(student.fechaNacimiento);
+//   If (Not birthdayValidator(student.fechaNacimiento)) Then
+//     Begin
+//       textcolor(red);
+//       WriteLn('Fecha invalida');
+//       textcolor(green);
+//       changeBirthday(student);
+//     End;
+// End;
 
 End.
