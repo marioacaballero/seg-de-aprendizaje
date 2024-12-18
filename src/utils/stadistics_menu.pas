@@ -71,7 +71,7 @@ Begin
         Begin
           Case here Of 
             1: difStadistics();
-            2: WriteLn('Discapacidad con mayor grado de dificultad');
+            2: highDifStadistics();
             3: WriteLn('Otro');
             Else
               key := chr(27);
