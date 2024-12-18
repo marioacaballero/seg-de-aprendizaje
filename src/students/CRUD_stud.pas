@@ -12,7 +12,7 @@ stud_display, general_displays, students_submenus, students_utils;
 Procedure createStudent(leg: String; Var key: Char; Var rootLeg, rootName:
                         T_PUNT);
 Procedure readStudent(leg: String; Var root:T_PUNT);
-Procedure updateStudent(Var root: T_PUNT; leg: String);
+Procedure updateStudent(Var rootLeg, rootName: T_PUNT; leg: String);
 Procedure deleteStudent(Var root: T_PUNT; leg: String);
 
 Implementation
@@ -28,6 +28,9 @@ Begin
   Assign(f, path_alum);
   Reset(f);
   student.numLegajo := leg;
+  student.nombre := '';
+  student.apellido := '';
+  student.fechaNacimiento := '';
   chargeSubMenu(student);
   If (Length(student.fechaNacimiento) > 6) Then
     Begin
@@ -47,9 +50,9 @@ Begin
     End
   Else
     Begin
-      student.nombre := '';
-      student.apellido := '';
-      student.fechaNacimiento := '';
+      // student.nombre := '';
+      // student.apellido := '';
+      // student.fechaNacimiento := '';
       key := chr(27);
     End;
 End;
@@ -80,21 +83,24 @@ Begin
     End;
 End;
 
-Procedure updateStudent(Var root: T_PUNT; leg: String);
+Procedure updateStudent(Var rootLeg, rootName: T_PUNT; leg: String);
 
 Var 
   f: T_File_Alum;
   student: T_Alumno;
   x: T_DATO_ARBOL;
-  resp: byte;
   enc: Boolean;
 Begin
-  PREORDEN(root, leg, enc, x);
+  PREORDEN(rootLeg, leg, enc, x);
   Assign(f, path_alum);
   Reset(f);
   Seek(f, x.pos_arch);
   Read(f, student);
+  x.clave := student.apellido + ' ' + student.nombre;
   updateSubMenu(student);
+  suprime(rootName, x);
+  x.clave := student.apellido + ' ' + student.nombre;
+  CARGAR_ARBOL(rootName, x);
   Seek(f, filepos(f) - 1);
   Write(f, student);
   closeStudFile(f);

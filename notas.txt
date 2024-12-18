@@ -1,6 +1,6 @@
 [-] El archivo de evaluaciones se carga de manera cronologica (ya esta ordenado por fecha)
 [-] Se puede usar arbol, lista o busqueda secuencial para mostrar las evaluaciones de un alumno
-[] A menor valor menor dificultad
+[-] A menor valor menor dificultad
 
 Correcciones y/o sugerencias del 28/11/2024
 Alumnos: 
@@ -22,7 +22,7 @@ Alumnos:
 [x] En el modificar, mostrar formato de fecha (DDMMAAAA)
 [x] Poder cancelar en el dado de alta
 [x] Poder cancelar en el modificar los datos personales
-[-] Corregir el arbol de apynom al momento de editar nombre y apellido (eliminar el nodo y volver a insertarlo)
+[x] Corregir el arbol de apynom al momento de editar nombre y apellido (eliminar el nodo y volver a insertarlo)
 
 Evaluaciones:
 [-] Cambiar nombres de los menus para que sea mas intuitivo

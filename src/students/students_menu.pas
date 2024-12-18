@@ -20,7 +20,7 @@ Procedure menuStudents(Var rootLeg, rootName: T_PUNT);
 
 Implementation
 
-Procedure findSubMenu(leg:String; Var rootLeg:T_PUNT);
+Procedure findSubMenu(leg:String; Var rootLeg, rootName:T_PUNT);
 
 Var 
   i, here: integer;
@@ -70,7 +70,7 @@ Begin
         Begin
           clrscr;
           Case here Of 
-            1: updateStudent(rootLeg, leg);
+            1: updateStudent(rootLeg, rootName, leg);
             2: deleteStudent(rootLeg, leg);
             Else
               key := chr(27);
@@ -175,7 +175,7 @@ Begin
                Begin
                  BUSCAR(rootLeg,leg, find);
                  If (find) Then
-                   findSubMenu(leg, rootLeg)
+                   findSubMenu(leg, rootLeg, rootName)
                  Else
                    notFindSubMenu(leg, rootLeg, rootName);
                End
